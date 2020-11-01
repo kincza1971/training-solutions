@@ -20,5 +20,9 @@ public class Trainer {
         return "Név: " + this.name + "  Életkor: " + (year-this.yearOfBirth);
     }
 
+    public Trainer(String name, int yearOfBirth) {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+    }
 
 }
