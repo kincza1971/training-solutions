@@ -1,6 +1,5 @@
 package classsctructureconstructors;
 
-import java.sql.SQLOutput;
 
 public class StoreMain {
     public static void main(String[] args) {
