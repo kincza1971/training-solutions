@@ -46,5 +46,4 @@ public class Phone {
         Phone otthon = new Phone(name, type);
 
     }
-
 }
