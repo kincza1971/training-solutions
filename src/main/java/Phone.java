@@ -26,7 +26,7 @@ public class Phone {
     public static void main(String[] args) {
 
         Phone mobil = new Phone("mobil",06375);
-        Phone otthoni new Phone("otthoni", 6442)
+        Phone otthoni new Phone("otthoni", 6442);
 
     }
 
