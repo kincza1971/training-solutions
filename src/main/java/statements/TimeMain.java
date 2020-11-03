@@ -6,16 +6,25 @@ public class TimeMain {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("kérem az első időpontot óra, perc, másorpesr sorrendben!:" );
+        System.out.println("kérem az első időpont óra értékét:" );
         int hours=scanner.nextInt();
+
+        System.out.println("kérem az első időpont perc értékét:" );
         int minutes=scanner.nextInt();
+
+        System.out.println("kérem az első időpont másodperc értékét:" );
         int seconds=scanner.nextInt();
 
         Time time1 = new Time(hours,minutes,seconds);
 
-        System.out.println("kérem a második időpontot óra, perc, másorpesr sorrendben!:" );
+
+        System.out.println("kérem a második időpont óra értékét!:" );
         hours=scanner.nextInt();
+
+        System.out.println("kérem a második időpont perc értékét!:" );
         minutes=scanner.nextInt();
+
+        System.out.println("kérem a második időpont másodperc értékét!:" );
         seconds=scanner.nextInt();
 
         Time time2 = new Time(hours,minutes,seconds);
