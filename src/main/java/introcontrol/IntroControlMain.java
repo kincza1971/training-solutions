@@ -18,9 +18,9 @@ public class IntroControlMain {
         System.out.println(ic.greetingToJoe(""));
 
         ic.printNumbersBetweenAnyDirection(1,8);
-        System.out.println("");
+        System.out.println();
         ic.printNumbersBetweenAnyDirection(1,1);
-        System.out.println("");
+        System.out.println();
         ic.printNumbersBetweenAnyDirection(7,1);
 
         System.out.println("odd");

@@ -45,18 +45,18 @@ public class IntroControl {
     public void printNumbersBetweenAnyDirection(int a, int b) {
         if (a<=b) {
             for (int i = a; (i <= b); i++) {
-                System.out.println(i);
+                System.out.println(i + " ");
             }
         } else {
             for (int i = a; (i >= b); i--) {
-                System.out.println(i);
+                System.out.print(i + " ");
             }
         }
     }
 
     public void printOddNumbers(int max) {
         for (int i =1; i<=max; i=i+2) {
-            System.out.println(i);
+            System.out.print(i+" ");
         }
     }
 }
