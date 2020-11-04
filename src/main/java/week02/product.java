@@ -18,13 +18,9 @@ public class product {
     }
 
     public boolean areTheyEqual(product p) {
-        boolean res;
-        if ((this.name.equals(p.getName())) && (java.lang.Math.abs((this.code).length()-p.getCode().length()) <=1)) {
-            res= true;
-        } else {
-            res = false;
-        }
-        return res;
+
+        return ((this.name.equals(p.getName())) && (java.lang.Math.abs((this.code).length() - p.getCode().length()) <= 1));
     }
+
 
 }
