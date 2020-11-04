@@ -22,5 +22,11 @@ public class product {
         return ((this.name.equals(p.getName())) && (java.lang.Math.abs((this.code).length() - p.getCode().length()) <= 1));
     }
 
+    public static void main(String[] args) {
+        product p1 = new product("Termek", "1234");
+        product p2 = new product("Termek", "12345");
+        System.out.println(p1.areTheyEqual(p2));
+
+    }
 
 }
