@@ -111,5 +111,7 @@ public class ArrayOfArraysMain {
         int[] bet ={19,7,23,81,4};
         int[] res ={7,23,81,4,19};
         System.out.println(am.wonLottery(bet, res));
+
+       // Arrays.equals(bet,Arrays.sort(bet));
     }
 }
