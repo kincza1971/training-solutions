@@ -66,6 +66,19 @@ public class ArrayOfArraysMain {
         return Arrays.asList(dayOW);
     }
 
+    String multiplicationTableAsString(int size) {
+        int[][] mt = multiplicationTable(size);
+        String res = "";
+        for (int[] arr : mt) {
+            res = res + Arrays.toString(arr);
+        }
+        return res;
+    }
+
+    public boolean sameTempValues(double[] day, double[] anotherDay) {
+        return Arrays.equals(day, anotherDay);
+    }
+
     public static void main(String[] args) {
         ArrayOfArraysMain am = new ArrayOfArraysMain();
 
@@ -77,5 +90,9 @@ public class ArrayOfArraysMain {
         System.out.println();
         System.out.println(am.numberOfDaysAsString());
         System.out.println(am.daysOfWeek());
+        System.out.println(am.multiplicationTableAsString(5));
+        double[] day = {13.12};
+        double[] anotherDay ={14.5};
+        System.out.println(am.sameTempValues(day, anotherDay));
     }
 }
