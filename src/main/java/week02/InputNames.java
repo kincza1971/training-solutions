@@ -9,7 +9,7 @@ public class InputNames {
         Scanner scnr = new Scanner(System.in);
         for (int i = 0; i < 5; i++) {
 
-            System.out.println("Kérem a()z " + (i+1) + ". nevet");
+            System.out.println("Kérem a(z) " + (i+1) + ". nevet");
             nevek[i] = scnr.nextLine();
 
         }
