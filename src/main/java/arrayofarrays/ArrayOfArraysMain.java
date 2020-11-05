@@ -35,12 +35,33 @@ public class ArrayOfArraysMain {
         }
     }
 
+    public int[][] getValues() {
+        int[][] values = new int[12][];
+        int days;
+        for (int i = 1; i <13; i++) {
+            switch (i) {
+                case 4: case 6: case 9: case 11:
+                    days =30;
+                    break;
+                case 2:
+                    days =28;
+                    break;
+                default :
+                    days = 31;
+            }
+            values[i-1] = new int[days]; // kezdőérték int esetén magától 0
+        }
+        return values;
+    }
+
     public static void main(String[] args) {
         ArrayOfArraysMain am = new ArrayOfArraysMain();
 
         am.printArrayOfArrays(am.multiplicationTable(5));
         System.out.println();
         am.printArrayOfArrays(am.triangularMatrix(5));
+        System.out.println();
+        am.printArrayOfArrays(am.getValues());
 
     }
 }
