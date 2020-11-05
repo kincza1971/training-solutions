@@ -79,20 +79,37 @@ public class ArrayOfArraysMain {
         return Arrays.equals(day, anotherDay);
     }
 
+    public boolean wonLottery(int[] bet, int[] res) {
+        Arrays.sort(bet);
+        Arrays.sort(res);
+        return Arrays.equals(bet, res);
+    }
+
     public static void main(String[] args) {
         ArrayOfArraysMain am = new ArrayOfArraysMain();
 
         am.printArrayOfArrays(am.multiplicationTable(12));
+
         System.out.println();
         am.printArrayOfArrays(am.triangularMatrix(5));
+
         System.out.println();
         am.printArrayOfArrays(am.getValues());
+
         System.out.println();
         System.out.println(am.numberOfDaysAsString());
+
         System.out.println(am.daysOfWeek());
         System.out.println(am.multiplicationTableAsString(5));
+
+
         double[] day = {13.12};
         double[] anotherDay ={14.5};
         System.out.println(am.sameTempValues(day, anotherDay));
+
+
+        int[] bet ={19,7,23,81,4};
+        int[] res ={7,23,81,4,19};
+        System.out.println(am.wonLottery(bet, res));
     }
 }
