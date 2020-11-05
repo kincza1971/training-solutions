@@ -1,5 +1,7 @@
 package arrayofarrays;
 
+import java.util.Arrays;
+import java.util.List;
 
 public class ArrayOfArraysMain {
 
@@ -54,6 +56,16 @@ public class ArrayOfArraysMain {
         return mtrx;
     }
 
+    public String numberOfDaysAsString() {
+        int[] number = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        return Arrays.toString(number);
+    }
+
+    List<String> daysOfWeek() {
+        String[] dayOW = {"Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Vasárnap"};
+        return Arrays.asList(dayOW);
+    }
+
     public static void main(String[] args) {
         ArrayOfArraysMain am = new ArrayOfArraysMain();
 
@@ -62,5 +74,8 @@ public class ArrayOfArraysMain {
         am.printArrayOfArrays(am.triangularMatrix(5));
         System.out.println();
         am.printArrayOfArrays(am.getValues());
+        System.out.println();
+        System.out.println(am.numberOfDaysAsString());
+        System.out.println(am.daysOfWeek());
     }
 }
