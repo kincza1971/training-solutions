@@ -3,6 +3,7 @@ package arrayofarrays;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class ArrayOfArraysMain {
 
     public int[][] triangularMatrix(int size) {
@@ -76,13 +77,19 @@ public class ArrayOfArraysMain {
     }
 
     public boolean sameTempValues(double[] day, double[] anotherDay) {
-        return Arrays.equals(day, anotherDay);
+        int hours = day.length<anotherDay.length ? day.length : anotherDay.length;
+        double[] copyDay = Arrays.copyOfRange(day, 0, hours-1);
+        double[] copyAnotherDay = Arrays.copyOfRange(anotherDay, 0, hours-1);
+        return Arrays.equals(copyDay, copyAnotherDay);
     }
 
     public boolean wonLottery(int[] bet, int[] res) {
-        Arrays.sort(bet);
-        Arrays.sort(res);
-        return Arrays.equals(bet, res);
+
+        int[] copybet = Arrays.copyOf(bet,5);
+        int[] copyres = Arrays.copyOf(res,5);
+        Arrays.sort(copybet);
+        Arrays.sort(copyres);
+        return Arrays.equals(copybet, copyres);
     }
 
     public static void main(String[] args) {
@@ -103,14 +110,14 @@ public class ArrayOfArraysMain {
         System.out.println(am.multiplicationTableAsString(5));
 
 
-        double[] day = {13.12};
-        double[] anotherDay ={14.5};
-        System.out.println(am.sameTempValues(day, anotherDay));
+        double[] day = {13.12, 15.15, 16.16, 17.17, 18.18, 19.19, 20.20, 21.21, 22.22, 21.21, 20.20 };
+        double[] anotherDay ={13.12, 15.15, 16.16, 17.17, 18.18, 19.19, 20.20, 21.21, 22.22, 21.21, 20.20, 19.19};
+        System.out.println((am.sameTempValues(day, anotherDay)) ? "Egyezik" : "Nem egyezik");
 
 
         int[] bet ={19,7,23,81,4};
         int[] res ={7,23,81,4,19};
-        System.out.println(am.wonLottery(bet, res));
+        System.out.println(am.wonLottery(bet, res)?  "Nyert" : "Nem nyert");
 
        // Arrays.equals(bet,Arrays.sort(bet));
     }
