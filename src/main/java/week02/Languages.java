@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Languages {
-    private List<String> prgs = new ArrayList<>();
 
     public static void main(String[] args) {
+        List<String> prgs = new ArrayList<>();
+
         Languages lang = new Languages();
 
-        lang.prgs.add("Java");
-        lang.prgs.add("Python");
-        lang.prgs.add("JavaScript");
+        prgs.add("Java");
+        prgs.add("Python");
+        prgs.add("JavaScript");
 
-        for (String lg: lang.prg) {
+        for (String lg: prgs) {
             if (lg.length()>5) {
                 System.out.println(lg);
             }
