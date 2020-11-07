@@ -11,7 +11,7 @@ public class Warrior {
     public Warrior(String name, Point position) {
         this.name = name;
         this.position = position;
-        this.stamina = new Random().nextInt(101)-80;
+        this.stamina = new Random().nextInt(61)+20;
         this.skill = new Random().nextFloat();
     }
 
@@ -28,20 +28,24 @@ public class Warrior {
         }
         int y = 0;
         if (position.getY() > destination.getY()) {
-            x= position.getY()-1;
+            y= position.getY()-1;
         } else {
-            x = position.getY()==destination.getY() ? position.getY() : position.getY()+1;
+            y = position.getY()==destination.getY() ? position.getY() : position.getY()+1;
         }
         position = new Point(x,y);
     }
 
     public void attack(Warrior enemy) {
         if (new Random().nextFloat() < skill) {
-            enemy.skill = enemy.skill - (new Random().nextInt(3)+1);
+            enemy.stamina = enemy.stamina - (new Random().nextInt(3)+1);
         }
     }
 
     public boolean isAlive() {
         return stamina > 0;
+    }
+
+    public String toString() {
+        return name + " (" + position.getX() +", " + position.getY() + ") " + stamina;
     }
 }
