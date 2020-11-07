@@ -41,7 +41,7 @@ public class Warrior {
         }
     }
 
-    public boolean isAlive {
+    public boolean isAlive() {
         return stamina > 0;
     }
 }
