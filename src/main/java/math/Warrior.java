@@ -40,4 +40,8 @@ public class Warrior {
             enemy.skill = enemy.skill - (new Random().nextInt(3)+1);
         }
     }
+
+    public boolean isAlive {
+        return stamina > 0;
+    }
 }
