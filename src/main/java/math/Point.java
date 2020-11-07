@@ -23,10 +23,13 @@ public class Point {
     public double distance (Point otherPint) {
         int x = this.getX();
         int y = this.getY();
+
         int x1 = otherPint.getX();
         int y1= otherPint.getY();
-        double a =abs(x-x1);
-        double b =abs(y-y1);
-        return Math.sqrt(Math.pow(a,2.0) + Math.pow(b,2.0));
+
+//        double a =abs(x-x1);  elhagyható az abs, mert nényzetre lesz emelve
+//        double b =abs(y-y1);
+
+        return Math.sqrt(Math.pow(x-x1,2.0) + Math.pow(y-y1,2.0));
     }
 }
