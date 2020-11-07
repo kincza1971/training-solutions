@@ -32,6 +32,7 @@ public class Warrior {
         } else {
             y = position.getY()==destination.getY() ? position.getY() : position.getY()+1;
         }
+
         position = new Point(x,y);
     }
 
