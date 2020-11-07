@@ -20,16 +20,8 @@ public class Point {
         return y;
     }
 
-    public double distance (Point otherPint) {
-        int x = this.getX();
-        int y = this.getY();
-
-        int x1 = otherPint.getX();
-        int y1= otherPint.getY();
-
-//        double a =abs(x-x1);  elhagyható az abs, mert nényzetre lesz emelve
-//        double b =abs(y-y1);
-
-        return Math.sqrt(Math.pow(x-x1,2.0) + Math.pow(y-y1,2.0));
+    public double distance (Point otherPoint) {
+        // abs elhagyható a négyzetre emelés miatt
+        return Math.sqrt(Math.pow(getX()- otherPoint.getX(),2.0) + Math.pow(getY()-otherPoint.getY(),2.0));
     }
 }
