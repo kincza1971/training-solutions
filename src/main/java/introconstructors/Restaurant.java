@@ -31,6 +31,7 @@ public class Restaurant {
     public int getCapacity() {
         return capacity;
     }
+
 }
 
 
