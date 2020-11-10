@@ -22,4 +22,17 @@ public class Member {
     public void connectMember(Member member) {
         connections.add(member);
     }
+
+    public String connectedNames() {
+        String result ="";
+        for (Member member : connections) {
+            result = member.getName() + ", ";
+        }
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (connected : " + connectedNames() + ")";
+    }
 }

@@ -42,6 +42,7 @@ public class SocialNetwork {
         member.connectMember(otherMember);
     }
 
+
     public static void main(String[] args) {
         SocialNetwork socialNetwork = new SocialNetwork();
         socialNetwork.addMember("Joe");
@@ -53,5 +54,6 @@ public class SocialNetwork {
         socialNetwork.connect("John", "Joe");
 
         System.out.println(socialNetwork.bidirectionalConnections());
+        System.out.println(socialNetwork.members.toString());
     }
 }
