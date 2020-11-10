@@ -34,5 +34,6 @@ public class PrimitiveTypes {
 
         System.out.println(new Integer(1) + new Integer(2)); // 3; elvégzi az autoboxingot, összeadja, utána konvertálja
 
+
     }
 }
