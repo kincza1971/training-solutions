@@ -32,5 +32,7 @@ public class PrimitiveTypes {
         System.out.println("javastring 32 hosszon: " + sysBin);
         System.out.println(sysBin.equals(myBin) ? "Megegyezik" : "nem Egyezik meg");
 
+        System.out.println(new Integer(1) + new Integer(2)); // 3; elvégzi az autoboxingot, összeadja, utána konvertálja
+
     }
 }
