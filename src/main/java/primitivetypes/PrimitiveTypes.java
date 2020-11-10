@@ -17,14 +17,17 @@ public class PrimitiveTypes {
     }
     public static void main(String[] args) {
         PrimitiveTypes pm = new PrimitiveTypes();
+
         String myBin = pm.toBinaryString(1000);
         String sysBin = Integer.toBinaryString(1000);
 
         int length = 32;
         length = length-sysBin.length();
+
         for (int i=0;i<length;i++) {
             sysBin = "0"+sysBin;
         }
+
         System.out.println("számolt 32 hosszon: " + myBin);
         System.out.println("javastring 32 hosszon: " + sysBin);
         System.out.println(sysBin.equals(myBin) ? "Megegyezik" : "nem Egyezik meg");
