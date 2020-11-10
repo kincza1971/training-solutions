@@ -12,8 +12,9 @@ public class LiteralsMain {
         aString = "árvíztűrőtükörfúrógép";
         System.out.println(aString);
         String word;
+        int i = 0b1101;
         word= "title".toUpperCase();
-        System.out.println(Integer.toBinaryString(1));
-        System.out.println(Integer.toBinaryString(2));
+        System.out.println(Integer.toBinaryString(1) + " " + Integer.toString(1,2) );
+        System.out.println(Integer.toBinaryString(-2)  + " " + Integer.toString(-2,2));
     }
 }
