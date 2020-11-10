@@ -1,4 +1,4 @@
-package emuntype.week;
+package enumtype.week;
 
 import java.beans.PropertyEditorSupport;
 import java.util.ArrayList;

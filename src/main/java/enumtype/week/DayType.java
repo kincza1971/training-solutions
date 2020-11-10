@@ -1,4 +1,4 @@
-package emuntype.week;
+package enumtype.week;
 
 public enum DayType {
     WORKDAY,WEEKEND

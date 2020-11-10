@@ -1,4 +1,6 @@
-package emuntype.week;
+package enumtype.week;
+
+import enumtype.week.DayType;
 
 public enum Day {
     HÉTFŐ(DayType.WORKDAY), KEDD(DayType.WORKDAY), SZERDA(DayType.WORKDAY), CSÜTÖRTÖK(DayType.WORKDAY),
