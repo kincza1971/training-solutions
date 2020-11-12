@@ -3,33 +3,28 @@ package controlselection.consonant;
 public class ToConsonant {
 
     private char toConsonant(char aLetter) {
-        int index = "aAeEiIoOuU".indexOf(aLetter);
-        if (index>-1) {
-            switch (index) {
-                case 1:
+            switch (aLetter) {
+                case 'a':
                     return 'b';
-                case 2:
+                case'A':
                     return 'B';
-                case 3:
+                case 'e':
                     return 'f';
-                case 4:
+                case 'E':
                     return 'F';
-                case 5:
+                case 'i':
                     return 'j';
-                case 6:
+                case 'I':
                     return 'J';
-                case 7:
+                case 'o':
                     return 'p';
-                case 8:
+                case 'O':
                     return 'P';
-                case 9:
+                case 'u':
                     return 'v';
-                case 10:
+                case 'U':
                     return 'V';
-                default: return 'z';
+                default: throw new IllegalArgumentException("Nem magánhangzó: " + aLetter);
             }
-        } else {
-            throw new IllegalArgumentException("Nem magánhangzó: " + aLetter);
-        }
     }
 }
