@@ -24,6 +24,7 @@ public class Dictionary {
             if (anItem.getWord().equals(newWord)){
                 isNew=false;
                 oldItem = anItem;
+                break;
             }
         }
         if (isNew) {
