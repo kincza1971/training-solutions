@@ -9,17 +9,21 @@ public class SsnValidator {
         char ch;
         for (int i = 0; i < 9; i++) {
             ch = ssn.charAt(i);
-            if ("1234567890".indexOf( ch )  <0) {
-                return false;
-            }
-            if (i<8) {
-                if (i % 2 == 0) {
-                    chksum += Integer.parseInt("" + ch) * 3;
+//            if ("1234567890".indexOf( ch )  <0) {  // ez a megoldás is hibátlanul megy
+//                return false;
+//            }
+            try {
+                if (i < 8) {
+                    if (i % 2 == 0) {
+                        chksum += Integer.parseInt("" + ch) * 3;
+                    } else {
+                        chksum += Integer.parseInt("" + ch) * 7;
+                    }
                 } else {
-                    chksum += Integer.parseInt("" + ch) * 7;
+                    return (chksum % 10 == Integer.parseInt("" + ch));
                 }
-            } else {
-                return (chksum %10 == Integer.parseInt("" + ch));
+            } catch (IllegalArgumentException iae) {
+                return false;
             }
         }
         return false;
