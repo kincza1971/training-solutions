@@ -2,7 +2,7 @@ package controlselection.week;
 
 public class DayOfWeeks {
 
-    public String dayOlWeek(String day) {
+    public String dayOlWeeks(String day) {
         switch(day.toUpperCase()){
             case "HÉTFŐ":
                 return "Hét eleje";
