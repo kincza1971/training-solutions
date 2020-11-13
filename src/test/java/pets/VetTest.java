@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VetTest {
 
-    Vet vet = new Vet();
 
     @Test
     public void testAddDifferent() {
