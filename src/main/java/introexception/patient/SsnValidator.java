@@ -2,10 +2,10 @@ package introexception.patient;
 
 public class SsnValidator {
     public boolean isValidSsn(String ssn) {
-        if ((ssn == null) || (ssn.length()!=9)){
+        if ((ssn == null) || (ssn.length() != 9)) {
             return false;
         }
-        int chksum =0;
+        int chksum = 0;
         char ch;
         for (int i = 0; i < 9; i++) {
             ch = ssn.charAt(i);
