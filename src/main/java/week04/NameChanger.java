@@ -21,6 +21,8 @@ public class NameChanger {
         this.fullName = fullName;
         vezetekNev = names[0];
         keresztNev = names[1];
+
+        
     }
 
     public String getFullName() {
