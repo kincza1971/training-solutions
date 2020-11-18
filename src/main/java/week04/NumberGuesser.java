@@ -6,9 +6,9 @@ import java.util.Scanner;
 public class NumberGuesser {
 
     public static void main(String[] args) {
-        System.out.println("gondoltam egy számra, tippelj!");
+        System.out.println("gondoltam egy számra (0 és 100 között), tippelj!");
         Random rnd = new Random();
-        int num = rnd.nextInt(101);
+        int num = rnd.nextInt(101) ;
 //        System.out.println(num);
         int guess = 0;
         boolean kitalalva = false;
