@@ -14,14 +14,14 @@ public class NumberGuesser {
         int counter = 1;
         boolean kitalalva = false;
         Scanner sc = new Scanner(System.in);
-        while (!kitalalva & counter <7)  {
+        while (!kitalalva & counter <8)  {
             guess = sc.nextInt();
             if (num == guess) {
                 System.out.println("Gratulálok!!");
                 kitalalva = true;
             } else {
                 counter++;
-                System.out.println(num < guess ? "Kisebbre gondoltam " + counter : "Nagyobbra gondoltam " + counter);
+                System.out.println(num < guess ? "Kisebbre gondoltam " : "Nagyobbra gondoltam " );
             }
         }
         if (counter ==7) {
