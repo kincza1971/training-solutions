@@ -5,6 +5,14 @@ import java.util.Scanner;
 
 public class NumberGuesser {
 
+    public int getFibonacci(int n){
+        if(n<=1){
+            return n;
+        }else{
+            return getFibonacci(n-1)+getFibonacci(n-2);
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("gondoltam egy számra (0 és 100 között), tippelj!");
         Random rnd = new Random();
