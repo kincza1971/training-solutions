@@ -24,7 +24,7 @@ public class NumberGuesser {
                 System.out.println(num < guess ? "Kisebbre gondoltam " : "Nagyobbra gondoltam " );
             }
         }
-        if (counter ==7) {
+        if (counter ==8) {
             System.out.println("vesztettél :)");
         }
 
