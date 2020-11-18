@@ -10,7 +10,7 @@ public class NumberGuesser {
         Random rnd = new Random();
         int num = rnd.nextInt(101) ;
 //        System.out.println(num);
-        int guess = 0;
+        int guess = -1;
         boolean kitalalva = false;
         Scanner sc = new Scanner(System.in);
         while (!kitalalva)  {
