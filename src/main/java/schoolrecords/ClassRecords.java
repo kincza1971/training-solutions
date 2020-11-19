@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class ClassRecords {
     private String className;
-    Random rnd;
-    List<Student> students = new ArrayList<>();
+    private Random rnd;
+    private List<Student> students = new ArrayList<>();
 
     private boolean isEmpty(String toCheck) {
         return  (toCheck == null || toCheck.isBlank());

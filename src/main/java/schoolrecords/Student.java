@@ -56,14 +56,14 @@ public class Student {
         StringBuilder toPrint = new StringBuilder(500);
         toPrint.append(name + " marks: ");
         for (Mark mark : marks) {
-            toPrint.append(String.format("%s: %s(%d)",
+            toPrint.append(String.format("%s: %s(%d) ",
                     mark.getSubject().getSubjectName(),
                     mark.getMarkType().getDescription(),
                     mark.getMarkType().getValue()
                     )
             );
         }
-        return toPrint.toString();
+        return toPrint.toString().trim();
     }
 
     public boolean equals(Student student) {
