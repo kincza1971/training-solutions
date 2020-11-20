@@ -67,7 +67,7 @@ public class Student {
     }
 
     public boolean equals(Student student) {
-        return (name.equals(student.getName()));
+        return (name.toLowerCase().equals(student.getName().toLowerCase()));
     }
 
 

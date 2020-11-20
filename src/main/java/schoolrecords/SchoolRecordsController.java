@@ -1,9 +1,8 @@
 package schoolrecords;
 
-import org.junit.platform.commons.function.Try;
 
-import java.beans.PropertyEditorSupport;
-import java.lang.reflect.Array;
+//import java.util.*;
+
 import java.util.*;
 
 public class SchoolRecordsController {
@@ -90,7 +89,7 @@ public class SchoolRecordsController {
 
     private Subject findSubjectByName(String name) {
         for (Subject subject : subjects) {
-            if (subject.getSubjectName().equals(name)) {
+            if (subject.getSubjectName().toLowerCase().equals(name.toLowerCase())) {
                 return subject;
             }
         }
@@ -100,7 +99,7 @@ public class SchoolRecordsController {
 
     private Tutor findTutorByName(String name) {
         for (Tutor tutor : tutors) {
-            if (tutor.getName().equals(name)) {
+            if (tutor.getName().toLowerCase().equals(name.toLowerCase())) {
                 return tutor;
             }
         }
@@ -164,6 +163,7 @@ public class SchoolRecordsController {
         Student std = findStudent();
         System.out.println(std.calculateAverage());
     }
+
     private void printAverageByNameAndSubject() {
         Student std = findStudent();
         System.out.println("Name of subject?:");

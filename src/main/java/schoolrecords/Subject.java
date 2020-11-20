@@ -12,6 +12,6 @@ public class Subject {
     }
 
     public boolean equals(Subject aSub) {
-        return  (subjectName.equals(aSub.getSubjectName()));
+        return  (subjectName.toLowerCase().equals(aSub.getSubjectName().toLowerCase()));
     }
 }

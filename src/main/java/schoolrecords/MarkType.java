@@ -7,7 +7,7 @@ public enum MarkType {
     D(2, "close fail"),
     F(1, "fail") ;
 
-    private final int Value;
+    private final int value;
     private final String description;
 
     public MarkType getMarkTypeByName(String desc) {
@@ -33,7 +33,7 @@ public enum MarkType {
     }
 
     public int getValue() {
-        return Value;
+        return value;
     }
 
     public String getDescription() {
@@ -41,7 +41,7 @@ public enum MarkType {
     }
 
     MarkType(int value, String description) {
-        Value = value;
+        this.value = value;
         this.description = description;
     }
 }

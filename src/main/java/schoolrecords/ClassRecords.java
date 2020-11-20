@@ -92,7 +92,7 @@ public class ClassRecords {
             throw new IllegalArgumentException("Student name must not be empty!");
         }
         for (Student student : students) {
-            if (student.getName().equals(name)){
+            if (student.getName().toLowerCase().equals(name.toLowerCase())){
                 return student;
             }
         }
