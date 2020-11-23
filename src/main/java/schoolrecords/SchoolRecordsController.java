@@ -7,62 +7,11 @@ import java.util.*;
 
 public class SchoolRecordsController {
 
+    private static SetUpClass setUpClass = new SetUpClass();
+    private static TeachingStaff teachingStaff = setUpClass.setupStaff();
+    private static ClassRecords classRecords = setUpClass.setupClass();
+    private static List<Subject> subjects = setUpClass.setupSubjects();
 
-    private Tutor tutor1 = new Tutor("Nagy Csilla",
-            Arrays.asList(new Subject("földrajz"),
-                    new Subject("matematika"),
-                    new Subject("biológia")
-            ));
-
-    private Tutor tutor2 = new Tutor("Nagy Csilla",
-            Arrays.asList(new Subject("zene"),
-                    new Subject("fizika"),
-                    new Subject("kémia")));
-
-    private List<Tutor> tutors= new ArrayList<>(Arrays.asList(tutor1,tutor2));
-
-
-    private ClassRecords classRecords = new ClassRecords("Fourth Grade A", new Random(5));
-    private Student firstStudent = new Student("Kovács Rita");
-    private Student secondStudent = new Student("Nagy Béla");
-    private Student thirdStudent = new Student("Varga Márton");
-    private Student forthStudent = new Student("G. Maczó Ágika");
-    private Student fifthStudent = new Student("Urbán Violácska");
-    private Student sixthStudent = new Student("Kalányos Rózsika");
-
-    private Subject geo = new Subject("földrajz");
-    private Subject mat = new Subject("matematika");
-    private Subject bio = new Subject("biológia");
-    private Subject mus = new Subject("zene");
-    private Subject phi = new Subject("fizika");
-    private Subject chem = new Subject("kémia");
-
-    private List<Subject> subjects = new ArrayList<>(Arrays.asList(geo, mat, bio, mus, phi, chem));
-
-    public void setUp() {
-        firstStudent.grading(new Mark(MarkType.A, geo, tutor1));
-        firstStudent.grading(new Mark(MarkType.C, mat, tutor1));
-        firstStudent.grading(new Mark(MarkType.D, geo, tutor1));
-        secondStudent.grading(new Mark(MarkType.A, bio, tutor1));
-        secondStudent.grading(new Mark(MarkType.C, mat, tutor1));
-        secondStudent.grading(new Mark(MarkType.D, mus, tutor2));
-        thirdStudent.grading(new Mark(MarkType.A, phi, tutor2));
-        thirdStudent.grading(new Mark(MarkType.C, chem, tutor2));
-        thirdStudent.grading(new Mark(MarkType.D, geo, tutor1));
-        forthStudent.grading(new Mark(MarkType.B, phi, tutor2));
-        forthStudent.grading(new Mark(MarkType.C, chem, tutor2));
-        fifthStudent.grading(new Mark(MarkType.B, geo, tutor1));
-        fifthStudent.grading(new Mark(MarkType.A, bio, tutor1));
-        fifthStudent.grading(new Mark(MarkType.C, mat, tutor1));
-        fifthStudent.grading(new Mark(MarkType.D, mus, tutor2));
-
-        classRecords.addStudent(firstStudent);
-        classRecords.addStudent(secondStudent);
-        classRecords.addStudent(thirdStudent);
-        classRecords.addStudent(forthStudent);
-        classRecords.addStudent(fifthStudent);
-        classRecords.addStudent(sixthStudent);
-    }
 
     private Student findStudent() {
         Student std;
@@ -98,13 +47,13 @@ public class SchoolRecordsController {
     }
 
     private Tutor findTutorByName(String name) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getName().toLowerCase().equals(name.toLowerCase())) {
-                return tutor;
-            }
+        try {
+            return teachingStaff.findTutorByName(name);
+        } catch (IllegalArgumentException iax) {
+            System.out.println("Tutor name is invalid");
+            throw new IllegalArgumentException("Tutor name is invalid " + name);
+
         }
-        System.out.println("Tutor name is invalid");
-        throw new IllegalArgumentException("Tutor name is invalid " + name);
     }
 
     private void repetition() {
@@ -231,7 +180,7 @@ public class SchoolRecordsController {
 
     public static void main(String[] args) {
         SchoolRecordsController src = new SchoolRecordsController();
-        src.setUp();
+        setUpClass.setUp();
         int selected =-1;
         while (selected!=11 ) {
             selected = src.printMenu();
