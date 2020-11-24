@@ -2,6 +2,7 @@ package week05.d02;
 
 public class ChangeLetter {
     public static String changeVowels (String str){
+        if (str == null || str.isBlank()) throw new IllegalArgumentException("Paramater most not null");
         StringBuilder sb = new StringBuilder(str.length());
         sb.append(str);
         for (int i = 0; i<sb.length();i++) {
@@ -35,5 +36,6 @@ public class ChangeLetter {
         }
         return sb.toString();
     }
+
 
 }
