@@ -6,21 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 public class SetUpClass {
-    private Tutor tutor1 = new Tutor("Nagy Csilla",
-            Arrays.asList(new Subject("földrajz"),
-                    new Subject("matematika"),
-                    new Subject("biológia")
-            ));
-
-    private Tutor tutor2 = new Tutor("Nagy Csilla",
-            Arrays.asList(new Subject("zene"),
-                    new Subject("fizika"),
-                    new Subject("kémia")));
-
-    private TeachingStaff teachingStaff = new TeachingStaff(new ArrayList<>(Arrays.asList(tutor1,tutor2)));
-
-    private ClassRecords classRecords = new ClassRecords("Fourth Grade A", new Random());
-
 
     private Student firstStudent = new Student("Kovács Rita");
     private Student secondStudent = new Student("Nagy Béla");
@@ -37,6 +22,19 @@ public class SetUpClass {
     private Subject chem = new Subject("kémia");
 
     private List<Subject> subjects =new ArrayList<>(Arrays.asList(geo, mat, bio, mus, phi, chem));;
+
+
+    private Tutor tutor1 = new Tutor("Nagy Csilla", Arrays.asList(geo,mat,bio));
+
+    private Tutor tutor2 = new Tutor("Kovács Gábor",Arrays.asList(mus,phi, chem));
+
+    private Tutor tutor3 = new Tutor("Szentgyörgyi Albert", Arrays.asList(mat, phi, chem));
+
+    private TeachingStaff teachingStaff = new TeachingStaff(new ArrayList<>(Arrays.asList(tutor1,tutor2,tutor3)));
+
+    private ClassRecords classRecords = new ClassRecords("Fourth Grade A", new Random());
+
+
 
     public void setUp() {
         firstStudent.grading(new Mark(MarkType.A, geo, tutor1));
