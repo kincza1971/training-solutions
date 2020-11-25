@@ -1,4 +1,4 @@
-package week05.d02;
+package week05d02;
 
 public class ChangeLetter {
     public static String changeVowels (String str){
@@ -36,6 +36,9 @@ public class ChangeLetter {
         }
         return sb.toString();
     }
+
+
+    
 
 
 }
