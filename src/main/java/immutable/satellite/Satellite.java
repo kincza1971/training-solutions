@@ -27,6 +27,7 @@ public class Satellite {
     }
 
     public CelestialCoordinates getDestinationCoordinates() {
+
         return destinationCoordinates;
     }
 
