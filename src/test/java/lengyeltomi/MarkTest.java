@@ -1,7 +1,8 @@
-package schoolrecords;
+package lengyeltomi;
 
 
         import org.junit.jupiter.api.Test;
+        import lengyeltomi.*;
 
         import java.util.Arrays;
 
