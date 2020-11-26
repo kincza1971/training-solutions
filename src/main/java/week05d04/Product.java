@@ -13,6 +13,10 @@ public class Product {
         }
     }
 
+    public boolean isEmpty(String str) {
+        return (str == null || str == "");
+    }
+
     public long getPrice() {
         return price;
     }
@@ -22,11 +26,17 @@ public class Product {
     }
 
     public Product(long price, String currency) {
+        if (isEmpty(currency)) {
+            throw new IllegalArgumentException("Currency must not empty");
+        }
         this.price = price;
         this.eCurr=Currency.valueOf(currency);
     }
 
     public Product(long price, Currency currency) {
+        if (currency == null) {
+            throw new NullPointerException("Currency object cannot be null");
+        }
         this.price = price;
         this.eCurr=currency;
     }
