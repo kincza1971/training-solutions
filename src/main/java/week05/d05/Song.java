@@ -26,6 +26,9 @@ public class Song {
         if (isEmpty(artist)) {
             throw new IllegalArgumentException("A előadó neve: (" + name + ") nem megfelelő");
         }
+        if (lengthInSeconds <=0) {
+            throw new IllegalArgumentException("A szám hossza (" + lengthInSeconds + ") nem lehet 0, vagy kisebb");
+        }
         this.name = name;
         this.lengthInSeconds = lengthInSeconds;
         this.artist = artist;
