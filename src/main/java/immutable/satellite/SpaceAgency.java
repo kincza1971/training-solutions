@@ -1,7 +1,5 @@
 package immutable.satellite;
 
-import week05d02.d03.InvalidUserException;
-
 import java.util.ArrayList;
 import java.util.List;
 

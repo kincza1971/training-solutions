@@ -1,4 +1,4 @@
-package week05d04;
+package week05.d04;
 
 public enum Currency {
     HUF(1), USD(300);

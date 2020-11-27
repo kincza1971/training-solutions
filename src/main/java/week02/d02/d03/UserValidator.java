@@ -1,6 +1,4 @@
-package week05d02.d03;
-
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Validate;
+package week02.d02.d03;
 
 import java.util.List;
 
