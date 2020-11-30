@@ -18,7 +18,6 @@ public class Trooper {
 
     public double distanceFrom(Position aPos) {
         isPosNull(aPos);
-        isPosNull(position);
         return position.distanceFrom(aPos);
     }
 
