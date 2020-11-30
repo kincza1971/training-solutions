@@ -1,8 +1,8 @@
 package week06.d01;
 
 public class SumResult {
-    private double negSum;
-    private double posSum;
+    private final double negSum;
+    private final double posSum;
 
     public double getNegSum() {
         return negSum;
