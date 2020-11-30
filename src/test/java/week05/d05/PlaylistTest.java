@@ -27,4 +27,9 @@ public class PlaylistTest {
     public void PrintTest() {
         System.out.println(songList.toString());
     }
+
+    @Test
+    public void exceptions() {
+//        Assertions.assertEquals();
+    }
 }
