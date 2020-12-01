@@ -7,21 +7,21 @@ public class StockByCategory {
     private int otherQty;
 
     public void addToStock(Category category) {
-        switch (category.ordinal()) {
-            case 0:
+        switch (category.name()) {
+            case "FROZEN":
                 frozenQty++;
                 break;
-            case 1:
+            case "DAIRY":
                 diaryQty++;
                 break;
-            case 2:
+            case "BAKEDGOODS":
                 bakedGoodsQty++;
                 break;
-            case 3:
+            case "OTHER":
                 otherQty++;
                 break;
             default:
-                throw new IllegalArgumentException("Unknown category " + category.name() + "in StockByCategory");
+                throw new IllegalArgumentException("Unknown category " + category.name() + " in StockByCategory");
         }
     }
 

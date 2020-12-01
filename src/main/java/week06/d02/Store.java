@@ -27,15 +27,20 @@ public class Store {
         return counter;
     }
 
-    public StockByCategory getProductByCategory() {
-
+    public StockByCategory getProductsByCategory() {
         StockByCategory stock = new StockByCategory();
-
         for (Product product : products) {
             stock.addToStock(product.getCategory());
         }
-
         return stock;
+    }
+
+    public List<CategoryStock> getStockListByCategory() {
+        CategoryStockList stockList = new CategoryStockList();
+        for (Product product : products) {
+            stockList.add(product.getCategory());
+        }
+        return stockList.getStocks();
     }
 
 
