@@ -27,6 +27,17 @@ public class Store {
         return counter;
     }
 
+    public StockByCategory getProductByCategory() {
+
+        StockByCategory stock = new StockByCategory();
+
+        for (Product product : products) {
+            stock.addToStock(product.getCategory());
+        }
+
+        return stock;
+    }
+
 
     public Store(List<Product> products) {
         if (products == null || products.size() ==0) {
