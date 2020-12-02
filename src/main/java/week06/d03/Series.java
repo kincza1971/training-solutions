@@ -16,17 +16,17 @@ public class Series {
 
     }
 
-    public int calculateSeriesType(List<Integer> integers) {
+    public Results calculateSeriesType(List<Integer> integers) {
         checkList(integers);
         boolean isInc = isIncremental(integers.get(0),integers.get(1));
         for (int i = 2; i< integers.size();i++) {
             if (isInc != isIncremental(integers.get(i-1), integers.get(i))) {
-                return 0;
+                return Results.UNSORT;
             }
         }
         if (isInc) {
-            return 1;
+            return Results.INC;
         }
-        return -1;
+        return Results.DEC;
     }
 }
