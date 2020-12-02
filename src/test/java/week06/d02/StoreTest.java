@@ -37,6 +37,7 @@ public class StoreTest {
         Assertions.assertEquals("[FROZEN: 2, DAIRY: 2, BAKEDGOODS: 4, OTHER: 6]", stocks.toString());
         Assertions.assertEquals("frozenQty: 2, diaryQty: 2, bakedGoodsQty: 4, otherQty: 6", store.getProductsByCategory().toString());
     }
+
 }
 
 

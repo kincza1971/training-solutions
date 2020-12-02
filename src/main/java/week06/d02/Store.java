@@ -27,6 +27,7 @@ public class Store {
         return counter;
     }
 
+    // objektum
     public StockByCategory getProductsByCategory() {
         StockByCategory stock = new StockByCategory();
         for (Product product : products) {
@@ -35,6 +36,7 @@ public class Store {
         return stock;
     }
 
+    //lista
     public List<CategoryStock> getStockListByCategory() {
         CategoryStockList stockList = new CategoryStockList();
         for (Product product : products) {
