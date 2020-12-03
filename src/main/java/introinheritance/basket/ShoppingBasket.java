@@ -1,11 +1,13 @@
 package introinheritance.basket;
 
 public class ShoppingBasket {
+
     private Basket basket;
 
     public void addItem(Item item) {
         basket.addItem(item);
     }
+
     public void removeItem(String barcode) {
         basket.removeItem(barcode);
     }
@@ -35,6 +37,7 @@ public class ShoppingBasket {
     public void checkout() {
         basket.clearBasket();
     }
+
     public void removeMostExpensiveItem() {
         double max = Double.MIN_VALUE;
         String barCode = "";
