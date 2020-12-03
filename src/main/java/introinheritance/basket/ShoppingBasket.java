@@ -2,7 +2,7 @@ package introinheritance.basket;
 
 public class ShoppingBasket {
 
-    private Basket basket;
+    private Basket basket = new Basket();
 
     public void addItem(Item item) {
         basket.addItem(item);
@@ -50,8 +50,6 @@ public class ShoppingBasket {
         removeItem(barCode);
     }
 
-    public ShoppingBasket() {
-    }
 
     //
 }

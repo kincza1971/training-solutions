@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Basket {
 
-    private List<Item> itemList;
+    private List<Item> itemList = new ArrayList<>();
 
     public void addItem(Item item) {
         itemList.add(item);
@@ -32,11 +32,4 @@ public class Basket {
        return List.copyOf(itemList);
     }
 
-    public Basket() {
-        itemList = new ArrayList<>();
-   }
-
-    public Basket(List<Item> itemList) {
-        this.itemList = itemList;
-    }
 }
