@@ -1,4 +1,4 @@
-package introinheritence.employee;
+package introinheritance.employee;
 
 public class BigBoss extends Boss {
     private double bonus;

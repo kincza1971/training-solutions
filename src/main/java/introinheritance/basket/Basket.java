@@ -1,11 +1,11 @@
-package introinheritence.basket;
+package introinheritance.basket;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Basket {
 
-    List<Item> itemList;
+    private List<Item> itemList;
 
     public void addItem(Item item) {
         itemList.add(item);
@@ -31,6 +31,10 @@ public class Basket {
     public List<Item> getItems() {
        return List.copyOf(itemList);
     }
+
+    public Basket() {
+        itemList = new ArrayList<>();
+   }
 
     public Basket(List<Item> itemList) {
         this.itemList = itemList;

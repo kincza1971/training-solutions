@@ -1,4 +1,4 @@
-package introinheritence.employee;
+package introinheritance.employee;
 
 public class Boss extends Employee {
     private final double LEADERSHIP_FACTOR = 0.1;

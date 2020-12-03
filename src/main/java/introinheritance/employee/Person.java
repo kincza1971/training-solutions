@@ -1,4 +1,4 @@
-package introinheritence.employee;
+package introinheritance.employee;
 
 public class Person {
     private String name;

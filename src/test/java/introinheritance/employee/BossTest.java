@@ -1,4 +1,4 @@
-package introinheritence.employee;
+package introinheritance.employee;
 
 import org.junit.jupiter.api.Test;
 

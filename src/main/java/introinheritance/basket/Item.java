@@ -1,4 +1,6 @@
-package introinheritence.basket;
+package introinheritance.basket;
+
+import java.util.Locale;
 
 public class Item {
     private String barcode;
@@ -19,7 +21,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Vonalkód: " + barcode + ", Nettó Ár: " + nettoPrice + ", ÁFA%: " + vatPercent;
+        return String.format(new Locale("en","EN"),"Item{barcode='%s', nettoPrice=%5.1f, vatPercent=%d}", barcode,nettoPrice,vatPercent);
     }
 
     public Item(String barcode, double nettoPrice, int vatPercent) {
