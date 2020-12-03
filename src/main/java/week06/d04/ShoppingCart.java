@@ -15,12 +15,20 @@ public class ShoppingCart {
         return name.toLowerCase().trim();
     }
 
-    public int getItem(String name) {
+    private Item findItem(String name) {
         String checkedName = checkedName(name);
         for (Item item : itemList) {
             if (item.getName().equals(checkedName)) {
-                return item.getQuantity();
+                return item;
             }
+        }
+        return null;
+    }
+
+    public int getItem(String name) {
+        Item item = findItem(name);
+        if (name != null) {
+            return item.getQuantity();
         }
         return 0;
     }
@@ -35,15 +43,11 @@ public class ShoppingCart {
     }
 
     public void addItem(String name, int quantity) {
-        String checkedName = checkedName(name);
-        for (Item item : itemList) {
-            if (item.getName().equals(checkedName)) {
-                if (chkQty(item,quantity)) {
-                    item.incQty(quantity);
-                }
-                return;
-            }
+        Item item = findItem(name);
+        if (chkQty(item,quantity)) {
+            item.incQty(quantity);
+            return;
         }
-        itemList.add(new Item(checkedName,quantity));
+        itemList.add(new Item(checkedName(name),quantity));
     }
 }
