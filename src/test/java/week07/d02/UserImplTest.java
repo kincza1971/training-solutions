@@ -21,5 +21,13 @@ public class UserImplTest {
         Assertions.assertEquals("lfarkas", u4.getUsername());
     }
 
+    @Test
+    public void throwTest() {
+        //UserImpl u5 = new UserImpl(null,"","");
+
+        Exception ex = Assertions.assertThrows(Exception.class,() -> new UserImpl(null,"",""));
+        Assertions.assertEquals("firstname cannot be null or empty",ex.getMessage());
+    }
+
 
 }
