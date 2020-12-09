@@ -12,21 +12,11 @@ public class Date {
 
 
     private int calculateMonthLength(int year, int month){
-        int maxDay =0;
-        switch (month) {
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                maxDay=30;
-                break;
-            case 2:
-                maxDay = isLeapYear(year) ? 29 : 28;
-                break;
-            default:
-                maxDay =31;
-                break;
-        }
+        int maxDay = switch (month) {
+            case 4, 6, 9, 11 -> 30;
+            case 2 -> isLeapYear(year) ? 29 : 28;
+            default -> 31;
+        };
         return maxDay;
     }
 

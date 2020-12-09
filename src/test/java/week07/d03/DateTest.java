@@ -39,7 +39,7 @@ public class DateTest {
         Assertions.assertEquals("Az év csak pozitív egész szám lehet",ex.getMessage());
         ex=null;
 
-        Date date = Date.of(2020,4,29);
+        Date date = Date.of(2020,2,29);
         ex = Assertions.assertThrows(Exception.class,() -> date.withDay(33));
         Assertions.assertEquals("Hibás nap",ex.getMessage().substring(0,9));
         ex= null;
