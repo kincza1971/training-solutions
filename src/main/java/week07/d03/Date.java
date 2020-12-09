@@ -1,9 +1,9 @@
 package week07.d03;
 
 public class Date {
-    private static int year;
-    private static int month;
-    private static int day;
+    private final int year;
+    private final int month;
+    private final int day;
 
     private boolean isLeapYear(int year) {
 

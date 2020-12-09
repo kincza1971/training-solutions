@@ -37,10 +37,16 @@ public class DateTest {
     public void excTest() {
         Exception ex = Assertions.assertThrows(Exception.class,() -> Date.of(-7,3,17));
         Assertions.assertEquals("Az év csak pozitív egész szám lehet",ex.getMessage());
+        ex=null;
 
-        Date date = Date.of(2020,3,17);
-        Exception ex2 = Assertions.assertThrows(Exception.class,() -> date.withDay(33));
-        Assertions.assertEquals("Az év csak pozitív egész szám lehet",ex.getMessage());
+        Date date = Date.of(2020,4,29);
+        ex = Assertions.assertThrows(Exception.class,() -> date.withDay(33));
+        Assertions.assertEquals("Hibás nap",ex.getMessage().substring(0,9));
+        ex= null;
+
+        ex = Assertions.assertThrows(Exception.class,() -> date.withYear(2019));
+        Assertions.assertEquals("Hibás nap",ex.getMessage().substring(0,9));
+        ex= null;
 
     }
 }
