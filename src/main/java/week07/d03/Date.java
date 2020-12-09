@@ -58,10 +58,7 @@ public class Date {
     }
 
     static Date of(int year, int month, int day) {
-        Date date = new Date(year,month,day);
-        date.checkParams(year,month,day);
-        return new Date(year, month, day);
-
+         return new Date(year, month, day);
     }
 
     public int getYear() {
@@ -94,6 +91,7 @@ public class Date {
 
 
     private Date(int year, int month, int day) {
+        checkParams(year,month,day);
         this.year = year;
         this.month = month;
         this.day = day;
