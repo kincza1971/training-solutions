@@ -1,8 +1,8 @@
 package week07.d04;
 
-import names.Human;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ public class ShoppingList {
 
 
     private Item processLine(String itemStr) {
-        Item item;
         String[] strValues;
         strValues = itemStr.split(FIELD_SEPARATOR);
         return new Item(strValues[0], Double.parseDouble(strValues[1]),Double.parseDouble(strValues[2]));
@@ -33,7 +32,8 @@ public class ShoppingList {
         Path file = Path.of(filePath);
         List<String> itemStrs;
         try {
-            itemStrs =Files.readAllLines(file);
+//            itemStrs =Files.readAllLines(file, Charset.forName("UTF-8")); // ez is jó
+            itemStrs =Files.readAllLines(file, StandardCharsets.UTF_8);
             for (String itemStr : itemStrs) {
                 items.add(processLine(itemStr));
             }
