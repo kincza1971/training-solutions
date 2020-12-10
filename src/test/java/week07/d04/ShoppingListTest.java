@@ -11,7 +11,7 @@ public class ShoppingListTest {
 
     @Test
     public void elsoTest() {
-        long a = sl.calculateSum("src/items");
+        long a = sl.calculateSum("src/main/java/week07/d04/items");
         try {
             System.out.println(Path.of(".").toRealPath());
         } catch (IOException e) {
