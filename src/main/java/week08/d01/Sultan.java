@@ -19,13 +19,10 @@ public class Sultan {
     }
 
     private void changeDoors(int i) {
-        for (int j = 1; j<=NUMBER_OF_DOORS; j++) {
-            if (j % i ==0) {
-                doors[j-1] = OpenClose.change(doors[j-1]);
-            }
+        for (int j = i-1; j<NUMBER_OF_DOORS; j+=i) {
+            doors[j] = OpenClose.change(doors[j]);
         }
     }
-
 
     public String  openDoors() {
         for (int i = 1; i <= NUMBER_OF_DAYS; i++) {
