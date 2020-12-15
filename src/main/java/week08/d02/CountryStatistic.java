@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +45,18 @@ public class CountryStatistic {
         }
     }
 
+    public Country maxPopulation() {
+        int max = Integer.MIN_VALUE;
+        Country maxPop = null;
+        for (Country country : countries) {
+            if (country.getPopulation() > max) {
+                max = country.getPopulation();
+                maxPop = country;
+            }
+        }
+        return maxPop;
+    }
+
     public void loadCountriesFromFile(String stringPath) {
         try (BufferedReader br = new BufferedReader(createFileReader(stringPath))) {
             String line;
@@ -54,6 +68,20 @@ public class CountryStatistic {
         }
 
     }
+
+    public void loadCountriesFromFile2(String stringPath) {
+        Path file = Path.of(stringPath);
+        try {
+            List<String> lines =  Files.readAllLines(file);
+            for (String line : lines) {
+                countries.add(processLine(line));
+            }
+        } catch (IOException iox) {
+            throw new IllegalArgumentException("Cannot read file, " + stringPath, iox);
+        }
+
+    }
+
 
     public List<Country> getCountries() {
         return List.copyOf(countries);

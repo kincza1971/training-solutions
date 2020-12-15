@@ -45,6 +45,22 @@ public class Country {
         }
     }
 
+    public String getNameOfCountry() {
+        return nameOfCountry;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public int getNumberOfColors() {
+        return numberOfColors;
+    }
+
+    public int getNumberOfNeighbors() {
+        return numberOfNeighbors;
+    }
+
     public Country(String nameOfCountry, String population, String numberOfColors, String numberOfNeighbors) {
         this.nameOfCountry = validateNameOfCountry(nameOfCountry);
         this.population = validatePopulation(population);
