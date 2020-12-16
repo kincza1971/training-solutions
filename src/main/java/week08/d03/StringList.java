@@ -12,20 +12,27 @@ public class StringList {
         return new ArrayList<>();
     }
 
+    private int processWord(List<String> shortestWords, int minLength, int length, String word) {
+        if (length <= minLength) {
+            if (length < minLength) {
+                minLength = length;
+                shortestWords.clear();
+            }
+            shortestWords.add(word);
+        }
+        return minLength;
+    }
+
+
     public  List<String> getShortestWords(List<String> words) {
         List<String> shortestWords = checkParam(words);
         int minLength = Integer.MAX_VALUE;
         int length;
         for (String word : words) {
             length = word.length();
-            if (length <= minLength) {
-                if (length < minLength) {
-                    minLength = length;
-                    shortestWords.clear();
-                }
-                shortestWords.add(word);
-            }
+            minLength = processWord(shortestWords, minLength, length, word);
         }
         return new ArrayList<>(shortestWords);
     }
+
 }
