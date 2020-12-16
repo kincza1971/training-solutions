@@ -12,7 +12,8 @@ public class StringList {
         return new ArrayList<>();
     }
 
-    private int processWord(List<String> shortestWords, int minLength, int length, String word) {
+    private int processWord(List<String> shortestWords, int minLength, String word) {
+        int length = word.length();
         if (length <= minLength) {
             if (length < minLength) {
                 minLength = length;
@@ -27,10 +28,8 @@ public class StringList {
     public  List<String> getShortestWords(List<String> words) {
         List<String> shortestWords = checkParam(words);
         int minLength = Integer.MAX_VALUE;
-        int length;
         for (String word : words) {
-            length = word.length();
-            minLength = processWord(shortestWords, minLength, length, word);
+            minLength = processWord(shortestWords, minLength, word);
         }
         return new ArrayList<>(shortestWords);
     }
