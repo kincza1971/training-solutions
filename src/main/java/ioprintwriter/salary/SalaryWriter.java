@@ -9,8 +9,9 @@ import java.util.List;
 
 public class SalaryWriter {
 
-    public static final int GENERAL_SALARY = 200000;
+    public static final int MR_MRS_SALARY = 200000;
     public static final int DR_SALARY = 500000;
+    public static final int GEN_SALARY = 100000;
     private List<String> names;
 
     private void printToFile(PrintWriter pw, String name, int salary) {
@@ -21,11 +22,14 @@ public class SalaryWriter {
 
     private void writeToFile(PrintWriter pw, String name) {
         if (name.startsWith("Mr") || name.startsWith("Mrs")) {
-            printToFile(pw, name, GENERAL_SALARY);
+            printToFile(pw, name, MR_MRS_SALARY);
         } else if (name.startsWith("Dr")) {
             printToFile(pw, name, DR_SALARY);
+        } else {
+            printToFile(pw, name, GEN_SALARY);
         }
     }
+
 
 
     public void writeNamesAndSalaries(Path file){
