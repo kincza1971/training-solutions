@@ -10,7 +10,7 @@ public class CountryStatisticTest {
 
     @Test
     public void loadTest() {
-        cs.loadCountriesFromFile2("D:/dnload/github/training-solutions/src/main/resources/countries.txt");
+        cs.loadCountriesFromFile("D:/dnload/github/training-solutions/src/main/resources/countries.txt");
         List<Country> countries = cs.getCountries();
         System.out.println(cs.maxPopulation().getNameOfCountry());
     }

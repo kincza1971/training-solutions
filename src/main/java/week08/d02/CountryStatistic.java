@@ -18,7 +18,8 @@ public class CountryStatistic {
 
 
     private FileReader createFileReader(String stringPath) {
-        try (FileReader fr = new FileReader(stringPath, StandardCharsets.UTF_8)) {
+        try {
+            FileReader fr = new FileReader(stringPath, StandardCharsets.UTF_8);
             return fr;
         } catch (IOException e) {
             throw new IllegalArgumentException("File not found, " + stringPath,e);
