@@ -12,7 +12,7 @@ public class ExampleStore {
     private List<String> exampleTitles = new ArrayList<>();
 
     public void readFromFile() {
-        Path file = Path.of("/examples.md");
+        Path file = Path.of("examples.md");
         try {
             InputStream stream = ExampleStore.class.getResourceAsStream("examples.md");
             InputStreamReader isr = new InputStreamReader(stream);

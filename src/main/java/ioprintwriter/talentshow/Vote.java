@@ -1,8 +1,8 @@
 package ioprintwriter.talentshow;
 
-public class Vote {
+public class Vote implements Comparable <Vote> {
     private final int Id;
-    private int num;
+    private Integer num;
 
     public void incNum() {
         num++;
@@ -17,7 +17,17 @@ public class Vote {
         return Id;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return num;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + Id + ", Votes: " +num.toString();
+    }
+
+    @Override
+    public int compareTo(Vote vote) {
+        return this.getNumber().compareTo(vote.getNumber());
     }
 }

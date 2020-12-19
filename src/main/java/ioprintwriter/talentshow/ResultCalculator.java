@@ -1,12 +1,12 @@
 package ioprintwriter.talentshow;
 
 import java.io.BufferedReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ResultCalculator {
@@ -33,7 +33,6 @@ public class ResultCalculator {
                 processProd(prodStr);
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
             throw new IllegalStateException("IO file hiba",e);
         }
     }
@@ -59,8 +58,8 @@ public class ResultCalculator {
             while ((voteStr = br.readLine())!=null) {
                 processVote(voteStr);
             }
+            Collections.sort(votes, Collections.reverseOrder());
         } catch (IOException e) {
-            System.out.println(e.getMessage());
             throw new IllegalStateException("IO file hiba",e);
         }
     }
@@ -75,30 +74,20 @@ public class ResultCalculator {
     }
 
     private void writeToFile(List<Vote> tempVotes, PrintWriter pw) {
-        int maxVoteNumber;
-        int thisVoteNumber;
         String line;
-        Vote highestRanked = null;
-        while (tempVotes.size()>0) {
-            thisVoteNumber=0;
-            maxVoteNumber=0;
-            for (Vote vote : tempVotes) {
-                thisVoteNumber = vote.getNumber();
-                if (thisVoteNumber > maxVoteNumber) {
-                    maxVoteNumber = thisVoteNumber;
-                    highestRanked = vote;
-                }
-            }
-            line = getProductionById(highestRanked.getId()).toString() + " " + Integer.toString(highestRanked.getNumber());
+        for (Vote vote : tempVotes) {
+            line = getProductionById(vote.getId()).toString() + " " + Integer.toString(vote.getNumber());
             pw.println(line);
-            tempVotes.remove(highestRanked);
         }
+        String  winner = "Winner: " + getProductionById(votes.get(0).getId()).getName();
+        pw.write(winner);
     }
 
     public void writeResultToFile(Path resultFile) {
         try {
             PrintWriter pw = new PrintWriter(Files.newBufferedWriter(resultFile));
-            writeToFile(new ArrayList<>(votes),pw);
+            writeToFile(votes,pw);
+            pw.close();
         } catch (IOException e) {
             throw new IllegalArgumentException("Cannot write file, "+resultFile.toString(),e);
         }
