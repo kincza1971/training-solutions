@@ -1,5 +1,6 @@
 package week09.d02;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class FibCalculatorTest {
@@ -11,7 +12,7 @@ public class FibCalculatorTest {
     public void calcTest() {
         FibCalculator fc = new FibCalculator();
         double sum = fc.sumEvens(40);
-        System.out.println(sum);
+        Assertions.assertEquals(44,sum);
     }
 }
 

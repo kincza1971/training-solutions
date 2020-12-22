@@ -6,7 +6,6 @@ public class FibCalculator {
         int beforePrevious= 0;
         int previous =1;
         int number=0;
-        int i = 0;
         double sum = 0;
         while (true) {
             number=beforePrevious + previous;
@@ -17,10 +16,9 @@ public class FibCalculator {
                 return sum;
             }
 
-            if (i % 2 == 0) {
+            if (number % 2 == 0) {
                 sum += number;
             }
-            i++;
         }
     }
 }
