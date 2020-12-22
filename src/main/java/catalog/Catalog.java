@@ -1,97 +1,14 @@
 package catalog;
-
 import java.util.ArrayList;
 import java.util.List;
+public class Catalog
+{
+    ArrayList<CatalogItem> catalogItems = new ArrayList<>();
 
-public class Catalog {
-    private List<CatalogItem> catalogItems = new ArrayList<>();
-
-    private boolean isFulFillTitleCriteria(CatalogItem catalogItem,SearchCriteria searchCriteria){
-        if (searchCriteria.hasTitle()) {
-            List<String> titles = catalogItem.getTitles();
-            String title = searchCriteria.getTitle();
-            return titles.contains(title);
-        }
-        return false;
+    public ArrayList<CatalogItem> getCatalogItems() {
+        return new ArrayList<>(catalogItems);
     }
 
-    private boolean isFulFillContributorCriteria(CatalogItem catalogItem, SearchCriteria searchCriteria) {
-        if (searchCriteria.hasContributor()){
-            return  (catalogItem.getContributors().contains(searchCriteria.getContributor()));
-        }
-        return false;
-    }
-
-    private boolean fulFillCriteria(CatalogItem catalogItem, SearchCriteria searchCriteria){
-        return isFulFillContributorCriteria(catalogItem,searchCriteria) || isFulFillTitleCriteria(catalogItem, searchCriteria);
-    }
-
-    public List<CatalogItem> findByCriteria(SearchCriteria searchCriteria) {
-        List<CatalogItem> selected = new ArrayList<>();
-        for (CatalogItem catalogItem : catalogItems) {
-            if (fulFillCriteria(catalogItem, searchCriteria)) {
-                selected.add(catalogItem);
-            }
-        }
-        return List.copyOf(selected);
-    }
-
-    public int getFullLength() {
-        List<CatalogItem> audioItems = getAudioLibraryItems();
-        int fullLength=0;
-        for (CatalogItem catalogItem : audioItems) {
-            fullLength += catalogItem.fullLengthAtOneItem();
-        }
-        return fullLength;
-    }
-
-    private void checkNumberParam(int param) {
-        if (param <= 0) {
-            throw new IllegalArgumentException("Page number must be positive");
-        }
-    }
-
-    private void checkCounter(int counter) {
-       if (counter == 0) {
-           throw new IllegalArgumentException("No page");
-       }
-
-    }
-
-    public double averagePageNumberOver(int minimum){
-        checkNumberParam(minimum);
-        List<CatalogItem> printedItems = getPrintedLibraryItems();
-        int counter = 0;
-        int sumPages = 0;
-        int pages;
-        for (CatalogItem printedItem : printedItems) {
-            pages = printedItem.numberOfPagesAtOneItem();
-            if (pages>minimum) {
-                counter ++;
-                sumPages += pages;
-            }
-        }
-        checkCounter(counter);
-        return (double) sumPages/counter;
-    }
-
-    public int getAllPageNumber() {
-        int pageNumber = 0;
-        for (CatalogItem catalogItem : catalogItems) {
-            pageNumber += catalogItem.numberOfPagesAtOneItem();
-        }
-        return pageNumber;
-    }
-
-    public List<CatalogItem> getAudioLibraryItems(){
-        List<CatalogItem> audioLibraryItems = new ArrayList<>();
-        for(CatalogItem catalogItem : catalogItems) {
-            if (catalogItem.hasAudioFeature()) {
-                audioLibraryItems.add(catalogItem);
-            }
-        }
-        return List.copyOf(audioLibraryItems);
-    }
 
     public List<CatalogItem> getPrintedLibraryItems(){
         List<CatalogItem> printedLibraryItems = new ArrayList<>();
@@ -104,38 +21,162 @@ public class Catalog {
     }
 
 
-    private void checkRegNum(String regNum) {
-        if (Validators.isBlank(regNum)) {
-            throw new IllegalArgumentException("Registration Number cannot be null or empty");
+    public List<CatalogItem> getAudioLibraryItems(){
+        List<CatalogItem> audioLibraryItems = new ArrayList<>();
+        for(CatalogItem catalogItem : catalogItems) {
+            if (catalogItem.hasAudioFeature()) {
+                audioLibraryItems.add(catalogItem);
+            }
         }
-        if (Validators.isEmpty(catalogItems)) {
-            throw new IllegalStateException("Catalog is empty");
-        }
+        return List.copyOf(audioLibraryItems);
     }
 
 
-    public void deleteItemByRegistrationNumber(String regNum) {
-        checkRegNum(regNum);
-        for (CatalogItem ci : catalogItems) {
-            if (ci.getRegistrationNumber().equals(regNum)) {
-                catalogItems.remove(ci);
-                break;
+
+    public void addItem(CatalogItem cat)
+    {
+        catalogItems.add(cat);
+    }
+    public void deleteItemByRegistrationNumber(String regi)
+    {
+        for (int i = 0; i<catalogItems.size(); i++)
+        {
+            if(catalogItems.get(i).getRegistrationNumber() == regi)
+            {
+                catalogItems.remove(i);
             }
         }
     }
-
-    private void checkItemValidation(CatalogItem item) {
-        if (item == null) {
-            throw new  IllegalArgumentException("Item cannot be null");
+    public int  getAllPageNumber()
+    {
+        int  sum = 0;
+        for (int i = 0; i<catalogItems.size(); i++)
+        {
+            if (catalogItems.get(i).hasPrintedFeature())
+            {
+                sum = sum + catalogItems.get(i).numberOfPagesAtOneItem();
+            }
         }
+        return sum;
     }
-
-    public void addItem(CatalogItem item) {
-        checkItemValidation(item);
-        catalogItems.add(item);
+    public List<CatalogItem> getAudioLibraryitems()
+    {
+        List<CatalogItem>  audiolista = new ArrayList<>();
+        for (int i = 0; i<catalogItems.size(); i++) {
+            if (catalogItems.get(i).hasAudioFeature()) {
+                audiolista.add(catalogItems.get(i));
+            }
+        }
+        return audiolista;
     }
-
-    public List<CatalogItem> getCatalogItems() {
-        return List.copyOf(catalogItems);
+    public int  getFullLength()
+    {
+        int  sum = 0;
+        for (int i = 0; i<catalogItems.size(); i++)
+        {
+            if (catalogItems.get(i).hasAudioFeature())
+            {
+                sum = sum + catalogItems.get(i).fullLengthAtOneItem();
+            }
+        }
+        return sum;
+    }
+    public List<CatalogItem> getPrintedLibraryitems()
+    {
+        List<CatalogItem>  nyomtatottlista  =  new ArrayList<>();
+        for (int i = 0; i<catalogItems.size(); i++)
+        {
+            if (catalogItems.get(i).hasPrintedFeature())
+            {
+                nyomtatottlista.add(catalogItems.get(i));
+            }
+        }
+        return nyomtatottlista;
+    }
+    public double averagePageNumberOver(int page)
+    {
+        if (page == 0 ) {
+            throw new IllegalArgumentException("Page number must be positive");
+        }
+        int szamlalo = 0;
+        double atlag = 0;
+        for (int i=0; i < catalogItems.size(); i++)
+        {
+            if(catalogItems.get(i).hasPrintedFeature())
+            {
+                for(int j = 0; j < catalogItems.get(i).getFeatures().size(); j++)
+                {
+                    if (catalogItems.get(i).getFeatures().get(j) instanceof PrintedFeatures)
+                    {
+                        szamlalo = szamlalo + 1;
+                    }
+                }
+                atlag = catalogItems.get(i).numberOfPagesAtOneItem()/szamlalo;
+                if (atlag > page)
+                {
+                    return atlag;
+                }
+            }
+        }
+        return 0;
+    }
+    public List<CatalogItem> findByCriteria(SearchCriteria search)
+    {
+        List<CatalogItem> listamind2 = new ArrayList<>();
+        List<CatalogItem> listaContributors = new ArrayList<>();
+        List<CatalogItem> listaTitles = new ArrayList<>();
+        if(search.hasContributor()  &&  search.hasTitle())
+        {
+            for (int i = 0; i < catalogItems.size(); i++)
+            {
+                for (int j = 0; j < catalogItems.get(i).getFeatures().size(); i++)
+                {
+                    if (search.getContributor().equals(catalogItems.get(i).getFeatures().get(j).getContributors())
+                            &&
+                            search.getTitle().equals(catalogItems.get(i).getFeatures().get(j).getTitle())) ;
+                    {
+                        listamind2.add(catalogItems.get(i));
+                    }
+                }
+            }
+        }
+        if(search.hasContributor())
+        {
+            for (int i = 0; i<catalogItems.size(); i++)
+            {
+                for (int j = 0; j < catalogItems.get(i).getFeatures().size(); i++)
+                {
+                    if (search.getContributor().equals(catalogItems.get(i).getFeatures().get(j).getContributors()))
+                    {
+                        listaContributors.add(catalogItems.get(i));
+                    }
+                }
+            }
+        }
+        if (search.hasTitle())
+        {
+            for (int i = 0; i<catalogItems.size(); i++)
+            {
+                for (int j = 0; j < catalogItems.get(i).getFeatures().size(); i++)
+                {
+                    if (search.getContributor().equals(catalogItems.get(i).getFeatures().get(j).getContributors()))
+                    {
+                        listaTitles.add(catalogItems.get(i));
+                    }
+                }
+            }
+        }
+        if((search.hasContributor()  &&  search.hasTitle()))
+        {
+            return  listamind2;
+        }
+        if((search.hasContributor()))
+        {
+            return  listaContributors;
+        }
+        else
+        {
+            return  listaTitles;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package week02.d02.d03;
+package week02.d03;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,20 +20,24 @@ public class UserValidatorTest {
     private List<User> userList3 = new ArrayList<>(Arrays.asList(user1,user4));
     private List<User> userList4 = new ArrayList<>(Arrays.asList(user1,user5));
     private List<User> userList5 = new ArrayList<>(Arrays.asList(user1));
+    private List<User> userList6 = new ArrayList<>(Arrays.asList(user1,null));
     @Test
     public void userValidatorTest1() {
 
         Exception iax =  Assertions.assertThrows(InvalidUserException.class, () -> new UserValidator().validate(userList1));
-        Assertions.assertEquals(iax.getMessage(),"Age of user is acceptable between 0 and 120 only");
+        Assertions.assertEquals("Age of user is acceptable between 0 and 120 only",iax.getMessage());
 
-        Exception iax2 =  Assertions.assertThrows(InvalidUserException.class, () -> new UserValidator().validate(userList2));
-        Assertions.assertEquals(iax2.getMessage(),"Age of user is acceptable between 0 and 120 only");
+        iax =  Assertions.assertThrows(InvalidUserException.class, () -> new UserValidator().validate(userList2));
+        Assertions.assertEquals(iax.getMessage(),"Age of user is acceptable between 0 and 120 only");
 
         Exception iax3 =  Assertions.assertThrows(InvalidUserException.class, () -> new UserValidator().validate(userList3));
         Assertions.assertEquals(iax3.getMessage(),"Username must not null or empty");
 
         Exception iax4 =  Assertions.assertThrows(InvalidUserException.class, () -> new UserValidator().validate(userList4));
         Assertions.assertEquals(iax4.getMessage(),"Username must not null or empty");
+
+        Exception iax5 =  Assertions.assertThrows(NullPointerException.class, () -> new UserValidator().validate(userList6));
+        Assertions.assertEquals("User cannot be null",iax5.getMessage());
 
     }
 }

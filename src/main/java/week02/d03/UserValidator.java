@@ -1,4 +1,4 @@
-package week02.d02.d03;
+package week02.d03;
 
 import java.util.List;
 
@@ -15,8 +15,15 @@ public class UserValidator {
     };
 
 
+
     public void validate(List<User> userList) throws InvalidUserException {
+        if (userList==null) {
+            throw new NullPointerException("User list cannot be null");
+        }
         for (User user : userList) {
+            if (user == null) {
+                throw new NullPointerException("User cannot be null");
+            }
             if (isInvalidName(user)) {
                 throw new InvalidUserException("Username must not null or empty");
             }
@@ -25,6 +32,4 @@ public class UserValidator {
             }
         }
     }
-
-
 }
