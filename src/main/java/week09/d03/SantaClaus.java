@@ -9,7 +9,7 @@ public class SantaClaus {
     public List<Person> getThroughChimneys() {
         List<Person> hasToVisit = getListToVsit();
         if (hasToVisit.isEmpty()) {
-            throw new IllegalStateException("There is no kids in the list");
+            throw new IllegalStateException("There is no person in the list");
         }
         return new ArrayList<>(hasToVisit);
     }
@@ -17,15 +17,16 @@ public class SantaClaus {
     private List<Person> getListToVsit() {
         List<Person> hasToVisit = new ArrayList<>();
         for (Person person : people) {
-            if (person.isBelowFifteen()) {
-                person.setPresent();
-                hasToVisit.add(person);
-            }
+            person.setPresent();
+            hasToVisit.add(person);
         }
         return hasToVisit;
     }
 
     public SantaClaus(List<Person> people) {
+        if (people == null || people.isEmpty()) {
+            throw new IllegalArgumentException("Person list must not null");
+        }
         this.people = people;
     }
 }

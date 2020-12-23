@@ -33,7 +33,12 @@ public class Person {
     }
 
     public void setPresent() {
-        int presNum = rnd.nextInt(4);
+        int presNum;
+        if (isBelowFifteen()) {
+            presNum= rnd.nextInt(4);
+        } else {
+            presNum = rnd.nextInt(3)+1;
+        }
         this.present = Present.values()[presNum];
     }
 

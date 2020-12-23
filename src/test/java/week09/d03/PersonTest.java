@@ -43,7 +43,7 @@ public class PersonTest {
         people.add(p3);
         SantaClaus santa = new SantaClaus(people);
         people = santa.getThroughChimneys();
-        Assertions.assertEquals(2,people.size());
+        Assertions.assertEquals(3,people.size());
         Assertions.assertEquals(Present.HOUSEKEEPING,people.get(0).getPresent());
     }
 
