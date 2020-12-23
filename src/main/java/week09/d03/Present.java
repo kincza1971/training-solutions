@@ -4,5 +4,6 @@ public enum Present {
     TOY,
     ELECTRONIC,
     HOUSEKEEPING,
-    DECORATION
+    DECORATION,
+    SEX_TOY
 }
