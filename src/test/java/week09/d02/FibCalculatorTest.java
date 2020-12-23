@@ -11,7 +11,7 @@ public class FibCalculatorTest {
     @Test
     public void calcTest() {
         FibCalculator fc = new FibCalculator();
-        double sum = fc.sumEvens(40);
+        long sum = fc.sumEvens(40);
         Assertions.assertEquals(44,sum);
     }
 }

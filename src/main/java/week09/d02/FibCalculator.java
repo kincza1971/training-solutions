@@ -2,23 +2,20 @@ package week09.d02;
 
 public class FibCalculator {
 
-    public double sumEvens(int bound) {
+    public long sumEvens(int bound) {
         int beforePrevious= 0;
         int previous =1;
         int number=0;
-        double sum = 0;
-        while (true) {
-            number=beforePrevious + previous;
-            beforePrevious=previous;;
-            previous = number;
-
-            if (number > bound) {
-                return sum;
-            }
-
+        long sum = 0;
+        while (sum < bound) {
             if (number % 2 == 0) {
                 sum += number;
             }
+            number=beforePrevious + previous;
+            beforePrevious=previous;
+            previous = number;
+
         }
+        return sum;
     }
 }
