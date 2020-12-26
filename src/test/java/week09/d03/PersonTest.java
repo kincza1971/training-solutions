@@ -20,7 +20,7 @@ public class PersonTest {
         p1.setPresent();
         p2.setPresent();
         p3.setPresent();
-        Assertions.assertEquals(Present.HOUSEKEEPING,p1.getPresent());
+        Assertions.assertEquals(Present.DECORATION,p1.getPresent());
         Assertions.assertEquals(Present.ELECTRONIC,p2.getPresent());
         Assertions.assertEquals(Present.DECORATION,p3.getPresent());
     }
@@ -44,7 +44,7 @@ public class PersonTest {
         SantaClaus santa = new SantaClaus(people);
         people = santa.getThroughChimneys();
         Assertions.assertEquals(3,people.size());
-        Assertions.assertEquals(Present.HOUSEKEEPING,people.get(0).getPresent());
+        Assertions.assertEquals(Present.DECORATION,people.get(0).getPresent());
     }
 
 
