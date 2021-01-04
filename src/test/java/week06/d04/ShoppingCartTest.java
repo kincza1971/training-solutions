@@ -15,8 +15,8 @@ public class ShoppingCartTest {
         Exception ex = assertThrows(IllegalArgumentException.class,() ->sc.addItem("", 3));
         Assertions.assertEquals(ex.getMessage(),"Name cannot be null or empty");
         sc.addItem("Cukor", 5);
-        sc.addItem("Cukor", -5);
-        Assertions.assertEquals(0,sc.getItem("cukor"));
+//        sc.addItem("Cukor", -5);
+        Assertions.assertEquals(5,sc.getItem("cukor"));
     }
     @Test
     public void incTest() {
@@ -29,6 +29,7 @@ public class ShoppingCartTest {
         Assertions.assertEquals(4,sc.getItem("só"));
         sc.addItem("Cukor", 5);
         Assertions.assertEquals(5,sc.getItem("cukor"));
+        System.out.println(sc.getItemList());
     }
 
 }

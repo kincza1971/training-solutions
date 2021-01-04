@@ -26,6 +26,7 @@ public class ShoppingCart {
     }
 
     public int getItem(String name) {
+        checkedName(name);
         Item item = findItem(name);
         if (name != null) {
             return item.getQuantity();
@@ -42,9 +43,13 @@ public class ShoppingCart {
         return true;
     }
 
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
     public void addItem(String name, int quantity) {
         Item item = findItem(name);
-        if (chkQty(item,quantity)) {
+        if (item != null && chkQty(item,quantity)) {
             item.incQty(quantity);
             return;
         }

@@ -30,39 +30,34 @@ public class Office {
         }
     }
 
+    private void printARoom(MeetingRoom meetingRoom) {
+        System.out.println(
+                meetingRoom.getName() + ", " +
+                        meetingRoom.getLength() + "," +
+                        meetingRoom.getWidth() + ", " +
+                        meetingRoom.getArea()
+        );
+
+    }
+
     public void printAreas() {
         for (MeetingRoom meetingRoom : meetingRooms) {
-            System.out.println(
-                    meetingRoom.getName() + ", " +
-                    meetingRoom.getLength() + "," +
-                    meetingRoom.getWidth() + ", " +
-                    meetingRoom.getArea()
-            );
+            printARoom(meetingRoom);
         }
     }
 
     public void printMeetingRoomsWithName(String name) {
         for (MeetingRoom meetingRoom : meetingRooms) {
             if (meetingRoom.getName().equals(name)) {
-                System.out.println(
-                        meetingRoom.getName() + ", " +
-                                meetingRoom.getLength() + "," +
-                                meetingRoom.getWidth() + ", " +
-                                meetingRoom.getArea()
-                );
+                printARoom(meetingRoom);
             }
         }
     }
 
     public void printMeetingRoomsContains(String part) {
         for (MeetingRoom meetingRoom : meetingRooms) {
-            if (meetingRoom.getName().toUpperCase().indexOf(part.toUpperCase()) !=-1) {
-                System.out.println(
-                        meetingRoom.getName() + ", " +
-                                meetingRoom.getLength() + "," +
-                                meetingRoom.getWidth() + ", " +
-                                meetingRoom.getArea()
-                );
+            if (meetingRoom.getName().toUpperCase().contains(part.toUpperCase())) {
+                printARoom(meetingRoom);
             }
         }
     }
@@ -70,12 +65,7 @@ public class Office {
     public void printAreasLargerThan(int area) {
         for (MeetingRoom meetingRoom : meetingRooms) {
             if (meetingRoom.getArea() > area) {
-                System.out.println(
-                        meetingRoom.getName() + ", " +
-                                meetingRoom.getLength() + "," +
-                                meetingRoom.getWidth() + ", " +
-                                meetingRoom.getArea()
-                );
+                printARoom(meetingRoom);
             }
         }
 
