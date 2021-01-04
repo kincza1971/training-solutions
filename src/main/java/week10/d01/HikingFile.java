@@ -36,7 +36,7 @@ public class HikingFile {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("cannot read file");
         }
         return diff;
     }
