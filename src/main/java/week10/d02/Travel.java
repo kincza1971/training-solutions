@@ -28,7 +28,7 @@ public class Travel {
     }
 
     public int getStopWithMax() {
-        Path path = Path.of("/utasadat.txt");
+        Path path = Path.of("src", "main","resources","utasadat.txt");
         int[] stations = new int[30];
         String line;
         try (BufferedReader br = Files.newBufferedReader(path)) {
@@ -41,5 +41,11 @@ public class Travel {
             throw new IllegalStateException("Cannot read file");
         }
         return getMax(stations);
+    }
+
+    public static void main(String[] args) {
+        Travel t = new Travel();
+        int i =t.getStopWithMax();
+        System.out.println(i);
     }
 }
