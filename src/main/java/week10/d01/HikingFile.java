@@ -41,11 +41,5 @@ public class HikingFile {
         return diff;
     }
 
-    public static void main(String[] args) {
-        Path datafile = Path.of("gpsdata.txt");
-        HikingFile hf = new HikingFile();
-        Differences differences = hf.getPlusElevation(HikingFile.class.getResourceAsStream("gpsdata.txt"));
-        System.out.println("" + differences.getIncreasing() + ", " +differences.getDecreasing());
-    }
 
 }
