@@ -9,7 +9,7 @@ public class LottoReader {
     private InputStream is;
     private int [] numCounter = new int[90];
 
-    private void getNumbers(){
+    private void readNumbers(){
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line = "";
         String[] parts;
@@ -19,7 +19,6 @@ public class LottoReader {
                 for (int i = 11; i<16;i++) {
                     numCounter[Integer.parseInt(parts[i])-1]++;
                 }
-
             }
         } catch (IOException e) {
             throw new IllegalStateException("Cannot read file");
@@ -36,6 +35,7 @@ public class LottoReader {
 
     public LottoReader(InputStream is) {
         this.is = is;
+        ;readNumbers();
 
     }
 }
