@@ -7,24 +7,24 @@ import java.nio.file.Path;
 
 public class Travel {
 
+    public static final int INDEX_OF_STATION = 0;
+
     private int[] procLine(String line, int[] stations) {
         String[] parts = line.split(" ");
-        if (!parts[4].equals("0")) {
-            stations[Integer.parseInt(parts[0])] += stations[Integer.parseInt(parts[0])] + 1;
-        }
+ //       if (!parts[4].equals("0")) {
+            stations[Integer.parseInt(parts[INDEX_OF_STATION])]++;
+//        }
         return stations;
     }
 
     public int getMax(int[] stations) {
-        int max = -1;
-        int station=-1;
-        for (int i = 0; i<30; i++) {
-            if (stations[i] >max) {
-                max = stations[i];
-                station = i;
+        int maxPos = 0;
+        for (int i = 0; i<stations.length; i++) {
+            if (stations[i] >stations[maxPos]) {
+                maxPos = i;
             }
         }
-        return station;
+        return maxPos;
     }
 
     public int getStopWithMax() {
