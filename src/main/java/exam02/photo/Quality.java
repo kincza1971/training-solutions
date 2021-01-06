@@ -7,6 +7,7 @@ public enum Quality {
     private int stars;
 
     Quality(int stars) {
+        this.stars = stars;
     }
 
     int getStars() {
