@@ -16,11 +16,22 @@ public class LottoReader {
         try {
             while ((line = br.readLine()) != null) {
                 parts= line.split(";");
+                for (int i = 11; i<16;i++) {
+                    numCounter[Integer.parseInt(parts[i])-1]++;
+                }
 
             }
         } catch (IOException e) {
             throw new IllegalStateException("Cannot read file");
         }
+    }
+
+    public int getNumber(int number) {
+        return numCounter[number-1];
+    }
+
+    public int[] getNumCounter() {
+        return numCounter;
     }
 
     public LottoReader(InputStream is) {
