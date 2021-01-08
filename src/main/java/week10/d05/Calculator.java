@@ -4,27 +4,19 @@ import java.util.*;
 
 public class Calculator {
 
+    public static final int NUMBER_OF_NUMBERS_TO_ADD = 4;
+
     public static void findMinMaxSum(int[] numbers) {
         Arrays.sort(numbers);
-        System.out.println(getMinSum(numbers));
-        System.out.println(getMaxSum(numbers));
+        int sumMin=0;
+        int sumMax=0;
+        for (int i = 0; i < NUMBER_OF_NUMBERS_TO_ADD; i++) {
+            sumMin += numbers[i];
+            sumMax += numbers[numbers.length-1-i];
+        }
+        System.out.printf("Legkisebbek összege: %d %nLegnagyobbak összege: %d", sumMin, sumMax);
     }
 
-    private static int getMaxSum(int[] numbers) {
-        int sum=0;
-        for (int i = numbers.length - 1; i > numbers.length - 5; i--) {
-            sum += numbers[i];
-        }
-        return sum;
-    }
-
-    private static int getMinSum(int[] numbers) {
-        int sum =0;
-        for (int i = 0; i < 4; i++) {
-            sum += numbers[i];
-        }
-        return sum;
-    }
 
 
     public static void main(String[] args) {
@@ -35,8 +27,8 @@ public class Calculator {
         db = scanner.nextInt();
         scanner.nextLine();
 
-        if (db<4) {
-            throw new IllegalArgumentException("A darabszám 4, vagy több lehet");
+        if (db<NUMBER_OF_NUMBERS_TO_ADD) {
+            throw new IllegalArgumentException(String.format("A darabszám %d, vagy több lehet", NUMBER_OF_NUMBERS_TO_ADD));
         }
         int[] recNums = new int[db];
         for (int i =0; i<db; i++) {
