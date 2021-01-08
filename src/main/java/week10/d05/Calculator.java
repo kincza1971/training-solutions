@@ -1,42 +1,33 @@
 package week10.d05;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Calculator {
 
     public static void findMinMaxSum(int[] numbers) {
-        List<Integer> intList = new ArrayList<>();
-        for (Integer i : numbers) {
-            intList.add(i);
-        }
-        intList.sort(Comparator.naturalOrder());
-
-        System.out.println(getMinSum(intList));
-        System.out.println(getMaxSum(intList));
+        Arrays.sort(numbers);
+        System.out.println(getMinSum(numbers));
+        System.out.println(getMaxSum(numbers));
     }
 
-    private static int getMaxSum(List<Integer> intList) {
+    private static int getMaxSum(int[] numbers) {
         int sum=0;
-        for (int i = intList.size() - 1; i > intList.size() - 5; i--) {
-            sum += intList.get(i);
+        for (int i = numbers.length - 1; i > numbers.length - 5; i--) {
+            sum += numbers[i];
         }
         return sum;
     }
 
-    private static int getMinSum(List<Integer> intList) {
+    private static int getMinSum(int[] numbers) {
         int sum =0;
         for (int i = 0; i < 4; i++) {
-            sum += intList.get(i);
+            sum += numbers[i];
         }
         return sum;
     }
 
 
     public static void main(String[] args) {
-        List<Integer> receiveNumbers = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         int db;
 
