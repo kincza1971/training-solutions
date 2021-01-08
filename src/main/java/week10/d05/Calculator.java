@@ -47,17 +47,12 @@ public class Calculator {
         if (db<4) {
             throw new IllegalArgumentException("A darabszám 4, vagy több lehet");
         }
-
+        int[] recNums = new int[db];
         for (int i =0; i<db; i++) {
             System.out.println("Kérem a számot:");
-            receiveNumbers.add(scanner.nextInt());
+            recNums[i] =scanner.nextInt();
         }
         scanner.nextLine();
-
-        int[] recNums = new int[receiveNumbers.size()];
-        for (int i = 0; i<receiveNumbers.size(); i++) {
-            recNums[i] = receiveNumbers.get(i);
-        }
 
         findMinMaxSum(recNums);
     }
