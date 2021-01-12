@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 public class Track {
     public static final String COORDINATE = "<trkpt";
     public static final String ELEVATION = "<ele>";
@@ -80,10 +83,73 @@ public class Track {
         return sumE;
     }
 
+    public TrackPoint findMaximumPoint() {
+        double maxLat = Double.MIN_VALUE;
+        double maxLatHeight=0;
+        double maxLong = Double.MIN_VALUE;
+        double maxLongHeight=0;
+        for(TrackPoint p : trackPoints){
+            if (maxLat< p.getCoordinate().getLatitude()) {
+                maxLat = p.getCoordinate().getLatitude();
+                maxLatHeight = p.getElevation();
+            }
+            if (maxLong < p.getCoordinate().getLongitude()) {
+                maxLong = p.getCoordinate().getLongitude();
+                maxLongHeight = p.getElevation();
+            }
+        }
+        return new TrackPoint(new Coordinate(maxLat,maxLong), (maxLatHeight+maxLongHeight)/2);
+    }
+
+    public TrackPoint findMinimumPoint() {
+        double minLat = Double.MAX_VALUE;
+        double minLong = Double.MAX_VALUE;
+        double minLatHeight= 0;
+        double minLongHeight=0;
+        for(TrackPoint p : trackPoints){
+            if (minLat> p.getCoordinate().getLatitude()) {
+                minLat = p.getCoordinate().getLatitude();
+                minLatHeight = p.getElevation();
+            }
+            if (minLong > p.getCoordinate().getLongitude()) {
+                minLong = p.getCoordinate().getLongitude();
+                minLongHeight = p.getElevation();
+            }
+        }
+        return new TrackPoint(new Coordinate(minLat,minLong), (minLatHeight+minLongHeight)/2);
+    }
+
+    public TrackPoint findRightBottom() {
+        double minLat = Double.MAX_VALUE;
+        double maxLong = Double.MIN_VALUE;
+        double minLatHeight= 0;
+        double maxLongHeight=0;
+        for(TrackPoint p : trackPoints){
+            if (minLat> p.getCoordinate().getLatitude()) {
+                minLat = p.getCoordinate().getLatitude();
+                minLatHeight = p.getElevation();
+            }
+            if (maxLong < p.getCoordinate().getLongitude()) {
+                maxLong = p.getCoordinate().getLongitude();
+                maxLongHeight = p.getElevation();
+            }
+        }
+        return new TrackPoint(new Coordinate(minLat,maxLong), (minLatHeight+maxLongHeight)/2);
+    }
+
+
+
     public double getRectangleArea() {
         Coordinate minPoint = findMinimumCoordinate();
         Coordinate maxPoint = findMaximumCoordinate();
         return (maxPoint.getLatitude()-minPoint.getLatitude()) * (maxPoint.getLongitude() - minPoint.getLongitude());
+    }
+
+    public double getRectangleArea2() {
+        TrackPoint minPoint = findMinimumPoint();
+        TrackPoint maxPoint= findMaximumPoint();
+        TrackPoint rightBottom = findRightBottom();
+        return sqrt(pow(maxPoint.getDistanceFrom(rightBottom),2) + minPoint.getDistanceFrom(rightBottom));
     }
 
     public List<TrackPoint> getTrackPoints() {
