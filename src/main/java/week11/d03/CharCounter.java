@@ -15,7 +15,7 @@ public class CharCounter {
     }
 
     public int countChars(String[] chars) {
-        if (chars == null || chars.length=0) {
+        if ((chars == null) || (chars.length==0)) {
             throw new IllegalStateException("String array cannot be null opr empty");
         }
         Set<Character> result = createCharSet(chars[0]);
