@@ -19,19 +19,13 @@ public class CharCounter {
             throw new IllegalStateException("String array cannot be null opr empty");
         }
         Set<Character> result = createCharSet(chars[0]);
-        Set<Character> setToCheck = new TreeSet<>();
         Set<Character> aktLine;
         for (String line : chars) {
-            if (result.size() == 0) {
+            if (result.isEmpty()) {
                 return 0;
             }
             aktLine = createCharSet(line);
-            setToCheck.addAll(result);
-            for (char c : setToCheck) {
-                if (!aktLine.contains(c)) {
-                    result.remove(c);
-                }
-            }
+            result.retainAll(aktLine); // csak a közöseket hagyja meg
         }
         return result.size();
     }
