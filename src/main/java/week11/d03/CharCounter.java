@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 public class CharCounter {
 
-    private Set<Character> createCharList(String s) {
+    private Set<Character> createCharSet(String s) {
         Set<Character> chars = new TreeSet<>();
         for (char c : s.toCharArray()) {
             chars.add(c);
@@ -15,13 +15,16 @@ public class CharCounter {
     }
 
     public int countChars(String[] chars) {
-        Set<Character> result = createCharList(chars[0]);
+        if (chars == null || chars.length=0) {
+            throw new IllegalStateException("String array cannot be null opr empty");
+        }
+        Set<Character> result = createCharSet(chars[0]);
         Set<Character> setToCheck = new TreeSet<>();
         Set<Character> aktLine;
         for (String line : chars) {
-            aktLine = createCharList(line);
+            aktLine = createCharSet(line);
             setToCheck.addAll(result);
-            for (Character c : setToCheck) {
+            for (char c : setToCheck) {
                 if (!aktLine.contains(c)) {
                     result.remove(c);
                 }

@@ -35,7 +35,7 @@ public class LottoReader {
 
     public LottoReader(InputStream is) {
         this.is = is;
-        ;readNumbers();
+        readNumbers();
 
     }
 }
