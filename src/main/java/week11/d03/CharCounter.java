@@ -22,6 +22,9 @@ public class CharCounter {
         Set<Character> setToCheck = new TreeSet<>();
         Set<Character> aktLine;
         for (String line : chars) {
+            if (result.size() == 0) {
+                return 0;
+            }
             aktLine = createCharSet(line);
             setToCheck.addAll(result);
             for (char c : setToCheck) {
