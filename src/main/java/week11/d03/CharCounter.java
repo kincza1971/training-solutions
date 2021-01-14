@@ -1,10 +1,11 @@
 package week11.d03;
 
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class CharCounter {
+
+    private int alma;
 
     private Set<Character> createCharSet(String s) {
         Set<Character> chars = new TreeSet<>();
@@ -13,6 +14,7 @@ public class CharCounter {
         }
         return chars;
     }
+
 
     public int countChars(String[] chars) {
         if ((chars == null) || (chars.length==0)) {
@@ -29,4 +31,5 @@ public class CharCounter {
         }
         return result.size();
     }
+
 }
