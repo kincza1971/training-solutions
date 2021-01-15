@@ -1,13 +1,9 @@
 package activity;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
 
 public class TrackPoint {
-    private Coordinate coordinate;
-    private double elevation;
+    private final Coordinate coordinate;
+    private final double elevation;
 
     private double distance(double lat1, double lat2, double lon1,
                                   double lon2, double el1, double el2) {
