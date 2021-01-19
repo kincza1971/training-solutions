@@ -5,17 +5,15 @@ import java.util.*;
 public class GoodsPacker {
 
     private int highValue;
-    private List<Good> goodList;
     private List<AddedGood> addedGoods = new ArrayList<>();
     private List<AddedGood> hingValueList = new ArrayList<>();
 
 
     private List<Good> getSortedGoods(int[][] goods,int capacity) {
         List<Good> goodList = new ArrayList<>();
-        int counter = 0;
-        for (int i =0; i<goods.length; i++) {
-            if (goods[i][0] < capacity) {
-                goodList.add(new Good(goods[i][0], goods[i][1]));
+        for (int[] good : goods) {
+            if (good[0] < capacity) {
+                goodList.add(new Good(good[0], good[1]));
             }
         }
         goodList.sort(Comparator.reverseOrder());
@@ -33,14 +31,6 @@ public class GoodsPacker {
         return aktList;
     }
 
-    private int getFullWeight() {
-        int sumWeight =0;
-        for (AddedGood addedGood : addedGoods) {
-            sumWeight += addedGood.getWeight();
-        }
-        return sumWeight;
-    }
-
     private int getFullPrice() {
         int sumPrice =0;
         for (AddedGood addedGood : addedGoods) {
@@ -53,15 +43,8 @@ public class GoodsPacker {
         if (highValue< getFullPrice()) {
             highValue =getFullPrice();
             hingValueList.clear();
-            Iterator<AddedGood> it = addedGoods.iterator();
-            AddedGood addedGood;
-            while (it.hasNext()) {
-                addedGood = it.next();
-                if (addedGood.getQuantity() > 0) {
-                    hingValueList.add(new AddedGood(addedGood.getGood(), addedGood.getQuantity()));
-                } else {
-                    it.remove();
-                }
+            for (AddedGood addedGood : addedGoods) {
+                hingValueList.add(new AddedGood(addedGood.getGood(), addedGood.getQuantity()));
             }
             System.out.println(getFullPrice());
         }
@@ -72,12 +55,11 @@ public class GoodsPacker {
             return;
         }
         if (capacity >= aktList.get(0).getWeight()) {
-            int quantity;
             for (Good good : aktList) {
                 AddedGood addedGood = new AddedGood(good,capacity/good.getWeight());
                 capacity -= addedGood.getWeight();
                 addedGoods.add(addedGood);
-                for (int i = 0; i<=addedGood.getQuantity(); i++){
+                for (int i = addedGood.getQuantity(); i>0; i--){
                     fillPlace(cutAktList(aktList), capacity);
                     addedGood.removeOne();
                     capacity += addedGood.getGood().getWeight();
@@ -90,10 +72,8 @@ public class GoodsPacker {
     }
 
     public int packGoods (int[][] goods,int capacity) {
-        goodList = getSortedGoods(goods,capacity);
-        for (Good good : goodList) {
-            fillPlace(goodList, capacity);
-        }
+        List<Good> goodList = getSortedGoods(goods,capacity);
+        fillPlace(goodList, capacity);
         return hingValueList.size();
     }
 
@@ -103,8 +83,8 @@ public class GoodsPacker {
 
     public static void main(String[] args) {
         GoodsPacker gp = new GoodsPacker();
-        int[][] goodArray = {{1,20},{7,160},{3,90},{4,100},{5,120}};
-        System.out.println(gp.packGoods(goodArray, 20));
+        int[][] goodArray = {{1,20},{7,160},{3,90},{4,100},{5,120}, {8,230}};
+        System.out.println(gp.packGoods(goodArray, 40));
         System.out.println(gp.getHighValueList());
 
     }

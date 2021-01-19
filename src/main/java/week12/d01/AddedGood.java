@@ -24,7 +24,7 @@ public class AddedGood {
         quantity--;
     }
 
-        public Good getGood() {
+    public Good getGood() {
         return good;
     }
 
