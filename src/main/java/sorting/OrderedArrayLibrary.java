@@ -18,7 +18,7 @@ public class OrderedArrayLibrary {
     public Book[] sortingByTitle() {
 
 
-        Comparator<Book> compareTile = new Comparator<Book>() {
+        Comparator<Book> compareTile = new Comparator<>() {
             Collator huCollator = Collator.getInstance(new Locale("hu", "HU"));
             public int compare(Book o1, Book o2) {
                 return huCollator.compare(o1.getTitle(),o2.getTitle());
