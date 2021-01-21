@@ -1,8 +1,5 @@
 package sorting;
 
-import java.text.Collator;
-import java.util.Locale;
-import java.util.Objects;
 
 public class Book implements Comparable<Book>{
     private final int regNumber;
