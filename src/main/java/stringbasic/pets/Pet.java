@@ -1,4 +1,4 @@
-package pets;
+package stringbasic.pets;
 
 import java.time.LocalDate;
 

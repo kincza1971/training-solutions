@@ -1,4 +1,4 @@
-package pets;
+package stringbasic.pets;
 
 
 import org.junit.jupiter.api.Test;
