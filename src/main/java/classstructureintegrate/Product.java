@@ -1,4 +1,4 @@
-package classsctructureintegrate;
+package classstructureintegrate;
 
 public class Product {
     private String name;
