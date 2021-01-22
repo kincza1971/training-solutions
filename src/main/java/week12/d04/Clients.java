@@ -20,7 +20,7 @@ public class Clients {
     }
 
     public List<Client> findByName(String namePart) {
-        checkString(namePart, "name part ");
+        checkString(namePart, "Name part ");
         List<Client> foundList = new ArrayList<>();
         for (Client client : clientMap.values()) {
             if (client.getName().toUpperCase().contains(namePart.toUpperCase())) {
