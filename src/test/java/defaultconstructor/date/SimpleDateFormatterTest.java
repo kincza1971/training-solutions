@@ -1,8 +1,5 @@
 package defaultconstructor.date;
 
-import defaultconstuctor.date.CountryCode;
-import defaultconstuctor.date.SimpleDate;
-import defaultconstuctor.date.SimpleDateFormatter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
