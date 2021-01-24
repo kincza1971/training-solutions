@@ -30,4 +30,8 @@ public class FileManager {
             throw new IllegalStateException("Cannot read file: " + filePath.toString(), e);
         }
     }
+
+    public List<Human> getHumans() {
+        return humans;
+    }
 }
