@@ -1,4 +1,4 @@
-package inheritedconstructor.cars;
+package inheritanceconstructor.cars;
 
 public class Jeep extends Car{
 
