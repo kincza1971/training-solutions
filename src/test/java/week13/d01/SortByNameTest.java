@@ -15,5 +15,6 @@ public class SortByNameTest {
     @Test
     public void testFindFirstInAbc() {
         Assertions.assertEquals("Aba", sortByName.getFirstCityInAbcFromFile(sortByName.getClass().getResourceAsStream("varosok.csv")));
+        System.out.println(sortByName.readAndSort(sortByName.getClass().getResourceAsStream("varosok.csv")));
     }
 }
