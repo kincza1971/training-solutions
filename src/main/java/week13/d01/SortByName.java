@@ -36,7 +36,8 @@ public class SortByName {
         checkStream(is);
         String firstInAbc = "ZZ";
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-            String line = br.readLine();
+            String line;
+            br.readLine();
             while ((line = br.readLine()) != null) {
                 firstInAbc = getSmaller(line,firstInAbc);
             }
@@ -48,12 +49,13 @@ public class SortByName {
 
     private City parseCity(String line) {
         String[] lineParts = line.split(FIELD_SEPARATOR);
-        return new City(lineParts[INDEX_OF_POSTCODE],lineParts[INDEX_OF_CITY]);
-
+        if (lineParts.length ==3) {
+            return new City(lineParts[INDEX_OF_POSTCODE], lineParts[INDEX_OF_CITY], lineParts[INDEX_OF_DISTRICT]);
+        } else {
+            return new City(lineParts[INDEX_OF_POSTCODE], lineParts[INDEX_OF_CITY], "");
+        }
     }
-
-    public City readAndSort(InputStream is) {
-        checkStream(is);
+    private void readCities(InputStream is) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
@@ -62,12 +64,14 @@ public class SortByName {
         } catch (IOException e) {
             throw new IllegalStateException("Cannot read file",e);
         }
+    }
+
+    public City readAndSort(InputStream is) {
+        checkStream(is);
+        readCities(is);
         cityList.sort(new huCollationComparator());
         return cityList.get(0);
     }
 
-    public static void main(String[] args) {
-        SortByName sortByName = new SortByName();
-        System.out.println(sortByName.getFirstCityInAbcFromFile(null));
-    }
+
 }

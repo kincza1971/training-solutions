@@ -1,13 +1,9 @@
 package week13.d01;
 
-import java.text.CollationKey;
-import java.text.Collator;
-import java.util.Locale;
-
 public class City {
     private final String postCode;
     private final String name;
-//    private final String district;
+    private final String district;
 
     public String getPostCode() {
         return postCode;
@@ -17,14 +13,11 @@ public class City {
         return name;
     }
 
-//    public String getDistrict() {
-//        return district;
-//    }
 
-    public City(String postCode, String name) {
+    public City(String postCode, String name, String district) {
         this.postCode = postCode;
         this.name = name;
-//        this.district = district;
+        this.district = district;
     }
 
 
