@@ -4,7 +4,11 @@ public class Temperatures {
     private final byte[] data;
 
     public double getYearAverage() {
-        return 0.0;
+        double sum = 0;
+        for(byte b : data) {
+            sum += b;
+        }
+        return sum/data.length;
     }
 
     public byte[] getData() {

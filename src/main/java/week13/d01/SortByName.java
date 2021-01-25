@@ -55,6 +55,7 @@ public class SortByName {
             return new City(lineParts[INDEX_OF_POSTCODE], lineParts[INDEX_OF_CITY], "");
         }
     }
+
     private void readCities(InputStream is) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
             String line = br.readLine();
