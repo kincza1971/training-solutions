@@ -6,15 +6,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.Collator;
 import java.util.Locale;
-import java.util.stream.Stream;
 
 public class SortByName {
 
-    private Collator huCollator = Collator.getInstance(new Locale( "hu", "HU"));
+    public static final String FIELD_SEPARATOR = ";";
+    public static final int INDEX_OF_CITY = 1;
+    private final Collator huCollator = Collator.getInstance(new Locale( "hu", "HU"));
 
     private String getSmaller(String line, String firstInAbc) {
-        String[] lineParts = line.split(";");
-        String aktCity = lineParts[1];
+        String[] lineParts = line.split(FIELD_SEPARATOR);
+        String aktCity = lineParts[INDEX_OF_CITY];
         if (huCollator.compare(firstInAbc,aktCity) <0) {
             return firstInAbc;
         } else return aktCity;
