@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.Collator;
 import java.util.Locale;
+import java.util.stream.Stream;
 
 public class SortByName {
 
@@ -19,15 +20,17 @@ public class SortByName {
         } else return aktCity;
     }
 
-    public String getFirstCityInAbcFromFile(InputStream is) {
+    private void checkStream(InputStream is){
         if (is ==null) {
-//            is = this.getClass().getResourceAsStream("varosok.csv");
             throw new IllegalStateException("Cannot read file");
         }
+    }
+
+    public String getFirstCityInAbcFromFile(InputStream is) {
+        checkStream(is);
         String firstInAbc = "ZZ";
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-            String line;
-            line = br.readLine();
+            String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 firstInAbc = getSmaller(line,firstInAbc);
             }
