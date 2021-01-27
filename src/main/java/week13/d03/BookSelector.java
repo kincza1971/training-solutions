@@ -3,6 +3,7 @@ package week13.d03;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 
 public class BookSelector {
@@ -18,6 +19,18 @@ public class BookSelector {
         }
         return author;
     }
+
+//    public String getThePostActiveAuthorStream() {
+//        return books
+//                .stream()
+//                .collect(Collectors.groupingBy(Book::getAuthor, Collectors.counting()))
+//                .entrySet()
+//                .stream()
+//                .max((a, b) -> (int) (a.getValue() - b.getValue()))
+//                .get()
+//                .getKey();
+//    }
+
 
 
     public String getAuthorWithMostPages(List<Book> books) {
