@@ -1,6 +1,5 @@
-package week002;
+package week02.d05;
 
-import javax.management.ObjectInstance;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,5 +1,5 @@
 
-package week002;
+package week02.d05;
 
 public class MeetingRoom {
 

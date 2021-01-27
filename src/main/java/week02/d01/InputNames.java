@@ -1,4 +1,4 @@
-package week02;
+package week02.d01;
 
 import javax.imageio.metadata.IIOMetadataFormatImpl;
 import java.util.Scanner;
