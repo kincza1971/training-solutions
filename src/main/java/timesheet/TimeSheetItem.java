@@ -3,7 +3,7 @@ package timesheet;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class TimesheetItem {
+public class TimeSheetItem {
     private final Project project;
     private final Employee employee;
     private final LocalDateTime beginDate;
@@ -25,7 +25,8 @@ public class TimesheetItem {
         }
     }
 
-    public TimesheetItem(Project project, Employee employee, LocalDateTime beginDate, LocalDateTime endDate) {
+    public TimeSheetItem(Employee employee, Project project, LocalDateTime beginDate, LocalDateTime endDate) {
+        checkDateParams(beginDate,endDate);
         this.project = project;
         this.employee = employee;
         this.beginDate = beginDate;

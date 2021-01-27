@@ -19,9 +19,18 @@ public class LibraryManager {
         throw new MissingBookException("Book cannot be found!");
     }
 
-    public int removeBookByRegNumber(int regNumber){
-        return 0;
+    public void removeBookByRegNumber(int regNumber){
+        Iterator<Book> bi = bookSet.iterator();
+        Book book;
+        while (bi.hasNext()) {
+            book = bi.next();
+            if (book.getRegNumber() == regNumber) {
+                bi.remove();
+            }
+        }
+        throw new MissingBookException("Book cannot be found!");
     }
+
     public Set<Book> selectBooksByAuthor(String author) {
         return null;
     }
