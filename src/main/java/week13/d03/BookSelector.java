@@ -7,6 +7,16 @@ import java.util.stream.Collectors;
 
 
 public class BookSelector {
+    public String getThePostActiveAuthorStream(List<Book> books) {
+        return books
+                .stream()
+                .collect(Collectors.groupingBy(Book::getAuthor, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .max((a, b) -> (int) (a.getValue() - b.getValue()))
+                .get()
+                .getKey();
+    }
 
     private String findAuthorWithMostPages(Map<String, Integer> authorMap) {
         int maxPages = 0;
@@ -19,19 +29,6 @@ public class BookSelector {
         }
         return author;
     }
-
-//    public String getThePostActiveAuthorStream() {
-//        return books
-//                .stream()
-//                .collect(Collectors.groupingBy(Book::getAuthor, Collectors.counting()))
-//                .entrySet()
-//                .stream()
-//                .max((a, b) -> (int) (a.getValue() - b.getValue()))
-//                .get()
-//                .getKey();
-//    }
-
-
 
     public String getAuthorWithMostPages(List<Book> books) {
         Map <String,Integer> authorMap = new TreeMap<>();
