@@ -40,6 +40,7 @@ public class TemplateEngineTest {
                 "Üdvözlettel,\n" +
                 "Ügyfélszolgálat\n";
 
+
         Assertions.assertEquals(accepted,result);
     }
 }
