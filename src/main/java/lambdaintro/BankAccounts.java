@@ -24,7 +24,7 @@ public class BankAccounts {
 
     public List<BankAccount> listBankAccountsByBalance() {
         List<BankAccount> sorted = new ArrayList<>(accounts);
-        sorted.sort(Comparator.comparing((a) -> Math.abs(a.getBalance())));
+        sorted.sort(Comparator.comparing(BankAccount::getAbsBalance));
         return sorted;
     }
 

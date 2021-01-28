@@ -25,6 +25,10 @@ public class BankAccount implements Comparable<BankAccount>{
         return balance;
     }
 
+    public double getAbsBalance() {
+        return Math.abs(getBalance());
+    }
+
     @Override
     public int compareTo(BankAccount o) {
         return this.getAccountNumber().compareTo(o.getAccountNumber());
