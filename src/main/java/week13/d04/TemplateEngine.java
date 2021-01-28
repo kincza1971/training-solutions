@@ -3,11 +3,12 @@ package week13.d04;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Map;
 
 public class TemplateEngine {
 
-    public void merge(BufferedReader reader, Map<String, Object> values, BufferedWriter writer) {
+    public String merge(BufferedReader reader, Map<String, Object> values, StringWriter writer) {
         try {
             StringBuilder sb;
             String line;
@@ -29,6 +30,7 @@ public class TemplateEngine {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return writer.toString();
     }
 }
 
