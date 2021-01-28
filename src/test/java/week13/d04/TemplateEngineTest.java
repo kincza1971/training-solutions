@@ -29,7 +29,11 @@ public class TemplateEngineTest {
         values.put("hatarido",LocalDate.of(2021,04,30));
         StringWriter sw = new StringWriter();
 
-        String result = te.merge(br,values,sw);
+        BufferedWriter bfw = new BufferedWriter(sw);
+
+        te.merge(br,values,bfw);
+
+        String result = sw.toString();
 
         String accepted = "Kedves Mézga Aladár!\n" +
                 "\n" +

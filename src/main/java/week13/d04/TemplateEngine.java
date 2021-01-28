@@ -8,29 +8,38 @@ import java.util.Map;
 
 public class TemplateEngine {
 
-    public String merge(BufferedReader reader, Map<String, Object> values, StringWriter writer) {
+    public static final String START_CHAR = "{";
+    public static final String END_CHAR = "}";
+
+    public void merge(BufferedReader reader, Map<String, Object> values, BufferedWriter writer) {
         try {
             StringBuilder sb;
             String line;
             String key;
             String newString;
             while ((line = reader.readLine()) != null){
-                if (line.contains("{")) {
-                    sb=new StringBuilder(line);
-                    key = sb.substring(sb.indexOf("{")+1,sb.indexOf("}"));
-                    newString = values.get(key).toString();
-                    sb.replace(sb.indexOf("{"),sb.indexOf("}")+1,newString);
-                    writer.write(sb.toString()+"\n");
-                } else {
-                    writer.write(line+"\n");
-                }
+                writeOneLine(values, writer, line);
             }
             reader.close();
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return writer.toString();
+    }
+
+    private void writeOneLine(Map<String, Object> values, BufferedWriter writer, String line) throws IOException {
+        String key;
+        StringBuilder sb;
+        String newString;
+        if (line.contains(START_CHAR)) {
+            sb=new StringBuilder(line);
+            key = sb.substring(sb.indexOf(START_CHAR)+1,sb.indexOf(END_CHAR));
+            newString = values.get(key).toString();
+            sb.replace(sb.indexOf(START_CHAR),sb.indexOf(END_CHAR)+1,newString);
+            writer.write(sb.toString()+"\n");
+        } else {
+            writer.write(line +"\n");
+        }
     }
 }
 

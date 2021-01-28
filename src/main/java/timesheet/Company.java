@@ -5,24 +5,20 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class Company {
 
     public static final int INDEX_OF_FIRSTNAME = 0;
     public static final int INDEX_OF_LASTNAME = 1;
     public static final String NAME_SEPARATOR = " ";
-    private final InputStream employiesFile;
+    private final InputStream employeesFile;
     private final InputStream projectsFile;
 
     private List<Employee> employees;
     private List<Project> projects;
     private List<TimeSheetItem> timesheetItems;
-    private Map<Employee,ReportLine> reportLineMap = new TreeMap<>();
 
     private void checkProject(Project project) {
         if (project == null || project.getName()== null || project.getName().isBlank()) {
@@ -44,11 +40,11 @@ public class Company {
     }
 
     private void checkEmployee(String employeeName) {
-        String[] nameParts= employeeName.split(" ");
+        String[] nameParts= employeeName.split(NAME_SEPARATOR);
         if (nameParts.length !=2) {
             throw new IllegalArgumentException("Invalid name");
         }
-        Employee employee = new Employee(nameParts[0], nameParts[1]);
+        Employee employee = new Employee(nameParts[INDEX_OF_FIRSTNAME], nameParts[INDEX_OF_LASTNAME]);
         checkEmployee(employee);
 
     }
@@ -72,8 +68,8 @@ public class Company {
 
     }
 
-    private void readEmployees() {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(employiesFile, StandardCharsets.UTF_8))) {
+    private void readEmployeesFromFile() {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(employeesFile, StandardCharsets.UTF_8))) {
             String line;
             employees = new ArrayList<>();
             while ((line = br.readLine()) != null) {
@@ -84,7 +80,7 @@ public class Company {
         }
     }
 
-    private void readProjects() {
+    private void readProjectsFromFile() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(projectsFile,StandardCharsets.UTF_8))) {
             String line;
             projects = new ArrayList<>();
@@ -162,6 +158,13 @@ public class Company {
         }
     }
 
+    public Company(InputStream employeesFile, InputStream projectsFile) {
+        this.employeesFile = employeesFile;
+        this.projectsFile = projectsFile;
+        readEmployeesFromFile();
+        readProjectsFromFile();
+    }
+
     public List<Employee> getEmployees() {
         return employees;
     }
@@ -174,10 +177,4 @@ public class Company {
         return timesheetItems;
     }
 
-    public Company(InputStream employiesFile, InputStream projectsFile) {
-        this.employiesFile = employiesFile;
-        this.projectsFile = projectsFile;
-        readEmployees();
-        readProjects();
-    }
 }
