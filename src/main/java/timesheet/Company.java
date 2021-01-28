@@ -44,7 +44,7 @@ public class Company {
         if (nameParts.length !=2) {
             throw new IllegalArgumentException("Invalid name");
         }
-        Employee employee = new Employee(nameParts[INDEX_OF_FIRSTNAME], nameParts[INDEX_OF_LASTNAME]);
+        Employee employee = new Employee(nameParts[INDEX_OF_FIRSTNAME],nameParts[INDEX_OF_LASTNAME]);
         checkEmployee(employee);
 
     }
