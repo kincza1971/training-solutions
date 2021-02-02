@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Shop {
 
@@ -81,6 +83,18 @@ public class Shop {
         return sum;
     }
 
+    public int getCustomerSpentSumByStream(String customerId) {
+        int sum = 0;
+        Customer customer =customers.stream()
+                .filter(cus -> cus.getCustomerId().equals(customerId))
+                .collect(Collectors.toList())
+                .get(0);
+        for (List<Item> itemList : customer.getTransactions().values()) {
+            sum += itemList.stream().reduce(0,(sub,it) -> sub+it.getItemPrice(),(sub,othersub) -> sub = sub+othersub);
+        }
+        return sum;
+    }
+
     private int getSum(int sum, Customer customer) {
         for (List<Item> items : customer.getTransactions().values()) {
             for (Item item : items) {
@@ -90,21 +104,28 @@ public class Shop {
         return sum;
     }
 
-    public List<Item> getSortedItemsOfTransactions(String custId, String key) {
+    public List<Item> getSortedItemsOfTransactions(String custId, String key,Comparator comparator) {
         for (Customer customer : customers) {
             if (customer.getCustomerId().equals(custId)) {
-                List<Item> items = getItems(key, customer);
-                if (items != null) return items;
+                List<Item> items = getSortedItems(key, comparator, customer);
+                return items;
             }
         }
         throw new IllegalArgumentException("Customer not found");
     }
 
+    private List<Item> getSortedItems(String key, Comparator comparator, Customer customer) {
+        List<Item> items = getItems(key, customer);
+        if (items != null) {
+            items.sort(comparator);
+            return items;
+        }
+        return null;
+    }
+
     private List<Item> getItems(String key, Customer customer) {
         if (customer.getTransactions().containsKey(key)) {
             List<Item> items = customer.getTransactions().get(key);
-            items.sort((o1, o2) -> o1.getItemName().compareTo(o2.getItemName()));
-            System.out.println(items);
             return items;
         }
         return null;
@@ -116,8 +137,12 @@ public class Shop {
 
     public static void main(String[] args) {
         Shop shop = new Shop();
-        System.out.println(shop.getSortedItemsOfTransactions("RA22","1145"));
-        System.out.println("alma");
+        Comparator<Item> comparator = (o1, o2) -> o1.getItemName().compareTo(o2.getItemName());
+        System.out.println(shop.getSortedItemsOfTransactions("RA22","1145",comparator));
+        comparator = (o1,o2) ->o1.getItemPrice()-o2.getItemPrice();
+        System.out.println(shop.getSortedItemsOfTransactions("RA22","1145",comparator));
+        System.out.println(shop.getCustomerSpentSumByStream("RA22"));
+
     }
 
 
