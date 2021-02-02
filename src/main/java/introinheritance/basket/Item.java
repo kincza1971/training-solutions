@@ -9,7 +9,7 @@ public class Item {
 
 
     public double getTaxAmount() {
-       return nettoPrice*vatPercent/100;
+        return nettoPrice*vatPercent/100;
     }
 
     public double getNettoPrice() {
