@@ -13,12 +13,11 @@ public class Shop {
     public static final String TRANSACTION_SEPARATOR = ":";
     public static final String CUSTOMER_SEPARATOR = "-";
     public static final String ITEM_SEPARATOR = ",";
-    public static final String PRICE_START = "(";
     private List<Customer> customers = new ArrayList<>();
 
 
     public void readFromFile() {
-        InputStream is = this.getClass().getResourceAsStream("/transactions.txt");//Customer.class.getResourceAsStream("transactions.txt");
+        InputStream is = this.getClass().getResourceAsStream("/transactions.txt");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -34,17 +33,29 @@ public class Shop {
         String[] custStrings = strings[0].split(CUSTOMER_SEPARATOR);
         String[] itemStrings = strings[1].trim().split(ITEM_SEPARATOR);
 
-        createCustomeList(custStrings[0], custStrings[1], itemStrings);
+        createCustomerList(custStrings[0], custStrings[1], itemStrings);
     }
 
-    private void createCustomeList(String name, String transId, String[] itemStrings) {
+    private Customer getOrCreateCustomer(String name) {
         Customer customer = new Customer(name);
-        customers.add(customer);
-        List<Item> items = new ArrayList<>();
-        for (String item : itemStrings) {
-            String[] itemParts = item.split(PRICE_START);
-            items.add(new Item(itemParts[0], Integer.parseInt(itemParts[1].substring(0, itemParts[1].length() - 1))));
+        if (customers.contains(customer)) {
+            return customers.get(customers.indexOf(customer));
         }
+        customers.add(customer);
+        return customer;
+    }
+
+    private void createCustomerList(String name, String transId, String[] itemStrings) {
+        Customer customer = getOrCreateCustomer(name);
+        List<Item> items = new ArrayList<>();
+        String itemName;
+        String price;
+        for (String item : itemStrings) {
+             itemName = item.substring(0,item.indexOf('('));
+             price = item.substring(item.indexOf('(')+1,item.indexOf(')'));
+            items.add(new Item(itemName,Integer.parseInt(price)));
+        }
+        customer.addTransaction(transId,items);
     }
 
     public int getTransactionsValue(String key) {
@@ -110,6 +121,7 @@ public class Shop {
 
     public static void main(String[] args) {
         Shop shop = new Shop();
+        System.out.println(shop.getSortedItemsOfTransactions("RA22","1145"));
         System.out.println("alma");
     }
 

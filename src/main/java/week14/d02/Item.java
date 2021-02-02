@@ -16,5 +16,9 @@ public class Item {
     public int getItemPrice() {
         return itemPrice;
     }
-    
+
+    @Override
+    public String toString() {
+        return String.format("%s(%d)",getItemName(),getItemPrice());
+    }
 }
