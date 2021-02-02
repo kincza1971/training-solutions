@@ -10,10 +10,10 @@ public class Library {
     public void loadFromFile() {
         try (Scanner loader = new Scanner(Library.class.getResourceAsStream("/books.csv")).useDelimiter(";|(\\r\\n)")) {
             String aBook;
-//            String[] data = new String[4];
+            String[] data;// = new String[4];
             while (loader.hasNextLine()) {
                 aBook=loader.nextLine();
-                String[] data = aBook.split(";");
+                data = aBook.split(";");
                 try {
                     books.add(new Book(data[0],data[1],data[2],Integer.parseInt(data[3])));
                 } catch (Exception ex) {

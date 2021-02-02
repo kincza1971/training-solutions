@@ -23,6 +23,9 @@ public class TimeSheetItem {
         if (!beginDate.toLocalDate().equals(endDate.toLocalDate())) {
             throw new IllegalArgumentException("Start and end date has to be on same day");
         }
+        if (!beginDate.toLocalDate().equals(endDate.toLocalDate())) {
+            throw new IllegalArgumentException("Dates need to be on same day");
+        }
     }
 
     public TimeSheetItem(Employee employee, Project project, LocalDateTime beginDate, LocalDateTime endDate) {
