@@ -1,13 +1,13 @@
 package week14.d02;
 
+import collectionsmap.Entry;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Shop {
@@ -15,6 +15,7 @@ public class Shop {
     public static final String TRANSACTION_SEPARATOR = ":";
     public static final String CUSTOMER_SEPARATOR = "-";
     public static final String ITEM_SEPARATOR = ",";
+    private Map<String,Integer> sold;
     private List<Customer> customers = new ArrayList<>();
 
 
@@ -64,9 +65,10 @@ public class Shop {
         int sum = 0;
         for (Customer customer : customers) {
             if (customer.getTransactions().containsKey(key)) {
-                for (Item item : customer.getTransactions().get(key)) {
-                    sum += item.getItemPrice();
-                }
+                sum= customer.getTransactions()
+                        .get(key)
+                        .stream()
+                        .reduce(0,(sub,it) -> sub += it.getItemPrice(),(sub,othersub) -> sub += othersub);
                 return sum;
             }
         }
@@ -107,14 +109,13 @@ public class Shop {
     public List<Item> getSortedItemsOfTransactions(String custId, String key,Comparator comparator) {
         for (Customer customer : customers) {
             if (customer.getCustomerId().equals(custId)) {
-                List<Item> items = getSortedItems(key, comparator, customer);
-                return items;
+                return getSortedItems(key, comparator, customer);
             }
         }
         throw new IllegalArgumentException("Customer not found");
     }
 
-    private List<Item> getSortedItems(String key, Comparator comparator, Customer customer) {
+    private List<Item> getSortedItems(String key, Comparator<Item> comparator, Customer customer) {
         List<Item> items = getItems(key, customer);
         if (items != null) {
             items.sort(comparator);
@@ -125,10 +126,45 @@ public class Shop {
 
     private List<Item> getItems(String key, Customer customer) {
         if (customer.getTransactions().containsKey(key)) {
-            List<Item> items = customer.getTransactions().get(key);
-            return items;
+            return customer.getTransactions().get(key);
         }
-        return null;
+        throw new IllegalArgumentException("Invalid transaction id");
+    }
+
+    public int countOrdersByItemName(String itemName) {
+        int counter = 0;
+        for (Customer customer : customers) {
+            for (List<Item> items : customer.getTransactions().values()) {
+                counter += items.stream().filter(item -> item.getItemName().equals(itemName)).count();
+            }
+        }
+        return counter;
+    }
+
+    private void collectItems (Item item) {
+        if (sold.containsKey(item.getItemName())) {
+            sold.put(item.getItemName(),sold.get(item.getItemName()).intValue()+1);
+        } else {
+            sold.put(item.getItemName(),1);
+        }
+    }
+
+    private List<String> createStringList() {
+        List<String> result = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : sold.entrySet()) {
+            result.add(String.format("%s (%d db)", entry.getKey(),entry.getValue()));
+        }
+        return result;
+    }
+
+    public List<String> getItemStatistic() {
+        sold = new HashMap<>();
+        for (Customer customer : customers) {
+            for (List<Item> items : customer.getTransactions().values()) {
+                items.stream().forEach(this::collectItems);
+            }
+        }
+        return createStringList();
     }
 
     public Shop() {
@@ -142,7 +178,9 @@ public class Shop {
         comparator = (o1,o2) ->o1.getItemPrice()-o2.getItemPrice();
         System.out.println(shop.getSortedItemsOfTransactions("RA22","1145",comparator));
         System.out.println(shop.getCustomerSpentSumByStream("RA22"));
-
+        System.out.println(shop.getTransactionsValue("1145"));
+        System.out.println(shop.countOrdersByItemName("bread"));
+        System.out.println(shop.getItemStatistic());
     }
 
 
