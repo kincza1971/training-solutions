@@ -103,12 +103,7 @@ public class Shop {
     private List<Item> getItems(String key, Customer customer) {
         if (customer.getTransactions().containsKey(key)) {
             List<Item> items = customer.getTransactions().get(key);
-            items.sort(new Comparator<Item>() {
-                @Override
-                public int compare(Item o1, Item o2) {
-                    return o1.getItemName().compareTo(o2.getItemName());
-                }
-            });
+            items.sort((o1, o2) -> o1.getItemName().compareTo(o2.getItemName()));
             System.out.println(items);
             return items;
         }
