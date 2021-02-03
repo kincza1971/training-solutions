@@ -6,9 +6,12 @@ import java.util.stream.Collectors;
 
 public class UserFilters {
     public UserFilter createFilter(List<Predicate<User>> predicates) {
+        if (predicates.size()==0) {
+            throw new IllegalArgumentException("Not condition in the list");
+        }
         Predicate result = predicates.get(0);
-        for (Predicate condition : predicates) {
-            result = result.and(condition);
+        for (int i =1; i< predicates.size();i++) {
+            result = result.and(predicates.get(i));
 
         }
         Predicate finalResult = result;
