@@ -33,7 +33,7 @@ public class Hachiko {
             Path path = Path.of("src/main/resources/hachiko.srt");
             return Files.lines(path, StandardCharsets.UTF_8)
                     .filter(m -> m.contains(word))
-                    .reduce(0,(sub,m) -> sub += countWordInLine(m),(a,b) -> a+b);
+                    .reduce(0,(sub,m) -> sub += countWordInLine(m), Integer::sum);
 
         } catch (IOException e) {
             throw new IllegalStateException("Cannot read file");
