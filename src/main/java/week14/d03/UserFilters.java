@@ -9,16 +9,18 @@ public class UserFilters {
         if (predicates.size()==0) {
             throw new IllegalArgumentException("Not condition in the list");
         }
-        Predicate result = predicates.get(0);
-        for (int i =1; i< predicates.size();i++) {
-            result = result.and(predicates.get(i));
+//        Predicate result = predicates.get(0);
+//        for (int i =1; i< predicates.size();i++) {
+//            result = result.and(predicates.get(i));
+//        }
+//
+//        result = predicates.stream().reduce(a ->true,Predicate::and);
 
-        }
-        Predicate finalResult = result;
+//        Predicate finalResult = result;
         return new UserFilter() {
             @Override
             public List<User> filter(List<User> users) {
-                return users.stream().filter(finalResult::test).collect(Collectors.toList());
+                return users.stream().filter(predicates.stream().reduce(a ->true,Predicate::and)::test).collect(Collectors.toList());
             }
         };
     }
