@@ -4,14 +4,11 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Cafe {
-    private List<CoffeeOrder> orders;
+    private final List<CoffeeOrder> orders;
 
     public Cafe(List<CoffeeOrder> orders) {
         this.orders = orders;
@@ -26,14 +23,14 @@ public class Cafe {
     }
 
     public BigDecimal getTotalIncome() {
-        return new BigDecimal(orders.stream()
+        return BigDecimal.valueOf(orders.stream()
                 .flatMap(CoffeeOrder::getCoffeeListAsStream)
                 .mapToDouble(Coffee::getPrice )
                 .sum()).setScale(2,RoundingMode.HALF_UP);
     }
 
     public BigDecimal getTotalIncome(LocalDate date) {
-        return new BigDecimal(orders.stream()
+        return BigDecimal.valueOf(orders.stream()
                 .filter(order -> order.getDate().equals(date))
                 .flatMap(CoffeeOrder::getCoffeeListAsStream)
                 .mapToDouble(Coffee::getPrice )
