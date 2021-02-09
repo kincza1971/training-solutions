@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Pizza {
 
@@ -35,68 +36,42 @@ public class Pizza {
     }
 
     public LocalDate findWorstDay() {
-        int minOrders = Integer.MAX_VALUE;
-        int aktOrders = 0;
-        LocalDate aktDate = LocalDate.of(1,1,1);
-        LocalDate minDate = aktDate;
-        for (Order order : orderList) {
-            if (aktDate.equals(order.getDate())) {
-                aktOrders++;
-            } else {
-                if (aktOrders < minOrders) {
-                    minOrders = aktOrders;
-                    aktOrders=1;
-                    minDate = aktDate;
-                }
-                aktDate = order.getDate();
+
+        TreeMap<LocalDate,Integer> ordersByDate =
+                orderList.stream().collect(Collectors.toMap(Order::getDate,m->1,Integer::sum,TreeMap::new));
+
+        LocalDate worstDate = ordersByDate.firstKey();
+        for (LocalDate date : ordersByDate.keySet()) {
+            if (ordersByDate.get(date) < ordersByDate.get(worstDate)) {
+                worstDate = date;
             }
         }
-        return minDate;
+        return worstDate;
     }
 
     public Optional<Order> findOrder(LocalDate date, LocalTime time) {
         return orderList.stream().filter(m -> m.getDate().equals(date) && m.getTime().equals(time)).findFirst();
     }
 
-    public Map<String, Integer> getStatisticByDriver() {
-        Map<String, Integer> drivers = new TreeMap<>();
-        String driver;
-        for (Order order : orderList) {
-            driver = order.getDriver();
-            if (drivers.containsKey(driver)) {
-                drivers.put(driver,drivers.get(driver)+1);
-            } else {
-                drivers.put(driver,1);
-            }
-        }
-        return drivers;
+    public TreeMap<String, Integer> getStatisticByDriver() {
+        return orderList.stream().collect(Collectors.toMap(Order::getDriver,m->1,Integer::sum,TreeMap::new));
     }
 
+
     public String getMostPopularAddress() {
-        Map<String, Integer> addresses = getAddressMap();
-        int maxVisit = 0;
-        String mostPopularAddress = null;
-        for (String anAddress : addresses.keySet()) {
-            if (addresses.get(anAddress) > maxVisit) {
-                maxVisit = addresses.get(anAddress);
+        TreeMap<String, Integer> orderByAddresses = getAddressMap();
+        String mostPopularAddress = orderByAddresses.firstKey();
+        for (String anAddress : orderByAddresses.keySet()) {
+            if (orderByAddresses.get(anAddress) > orderByAddresses.get(mostPopularAddress)) {
                 mostPopularAddress = anAddress;
             }
         }
         return mostPopularAddress;
     }
 
-    private Map<String, Integer> getAddressMap() {
-        Map<String, Integer> addresses = new TreeMap<>();
-        String address;
-        for (Order order : orderList) {
-            address = order.getAddress();
-            if (addresses.containsKey(address)) {
-                addresses.put(address,addresses.get(address)+1);
-            } else {
-                addresses.put(address,1);
-            }
-        }
-        return addresses;
+
+    private TreeMap<String, Integer> getAddressMap() {
+        return orderList.stream().collect(Collectors.toMap(Order::getAddress, m->1, Integer::sum, TreeMap::new));
     }
 
     public static void main(String[] args) {
@@ -104,6 +79,7 @@ public class Pizza {
         pizza.loadFromFile();
         System.out.println(pizza.findWorstDay());
         System.out.println(pizza.getStatisticByDriver());
+        System.out.println(pizza.getMostPopularAddress());
     }
 
 }
