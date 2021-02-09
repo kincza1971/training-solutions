@@ -15,26 +15,18 @@ public class Pizza {
 
     public void loadFromFile() {
         try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(
-                        this.getClass().getResourceAsStream("/orders.txt"), StandardCharsets.UTF_8
-                ))
-        ) {
+                new InputStreamReader(this.getClass().getResourceAsStream("/orders.txt"), StandardCharsets.UTF_8)))
+        {
             String line ="";
             LocalDate date = null;
-            String driver;
-            String address;
-            String[] lineParts;
-            LocalTime time;
             while ((line = br.readLine()) != null) {
                 if (line.length() == 10) {
                     date = LocalDate.parse(line, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
                 }else {
-                    driver = line;
-                    line = br.readLine();
-                    lineParts = line.split(" ");
-                    address = lineParts[0] + " "+lineParts[1] + " "+lineParts[2];
-                    time = LocalTime.parse(lineParts[3]);
-                    orderList.add(new Order(date,time,driver,address));
+                    String[] lineParts = br.readLine().split(" ");
+                    String address = lineParts[0] + " "+lineParts[1] + " "+lineParts[2];
+                    LocalTime time = LocalTime.parse(lineParts[3]);
+                    orderList.add(new Order(date,time,line,address));
                 }
             }
         } catch (IOException e) {
@@ -43,23 +35,23 @@ public class Pizza {
     }
 
     public LocalDate findWorstDay() {
-        int maxOrders = 0;
+        int minOrders = Integer.MAX_VALUE;
         int aktOrders = 0;
         LocalDate aktDate = LocalDate.of(1,1,1);
-        LocalDate maxDate = aktDate;
+        LocalDate minDate = aktDate;
         for (Order order : orderList) {
             if (aktDate.equals(order.getDate())) {
                 aktOrders++;
             } else {
-                if (aktOrders > maxOrders) {
-                    maxOrders = aktOrders;
+                if (aktOrders < minOrders) {
+                    minOrders = aktOrders;
                     aktOrders=1;
-                    maxDate = aktDate;
+                    minDate = aktDate;
                 }
                 aktDate = order.getDate();
             }
         }
-        return maxDate;
+        return minDate;
     }
 
     public Optional<Order> findOrder(LocalDate date, LocalTime time) {
