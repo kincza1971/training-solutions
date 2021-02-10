@@ -69,10 +69,10 @@ public class Pizza {
         return mostPopularAddress;
     }
 
-
     private TreeMap<String, Integer> getAddressMap() {
         return orderList.stream().collect(Collectors.toMap(Order::getAddress, m->1, Integer::sum, TreeMap::new));
     }
+
 
     public static void main(String[] args) {
         Pizza pizza = new Pizza();
