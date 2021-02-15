@@ -57,11 +57,16 @@ public class Cruise {
     }
 
     public List<String> getPassengerNamesOrdered() {
-        return passengers.stream().sorted().map(Passenger::getName).collect(Collectors.toList());
+        return passengers.stream()
+                       .sorted()
+                       .map(Passenger::getName)
+                       .collect(Collectors.toList());
     }
 
     public double sumAllBookingsCharged() {
-        return passengers.stream().mapToDouble(m->getBasicPrice()*m.getCruiseClass().getClassRate()).sum();
+        return passengers.stream()
+                   .mapToDouble(m -> getBasicPrice() * m.getCruiseClass().getClassRate())
+                   .sum();
     }
 
     public Map<CruiseClass,Integer> countPassengerByClass() {
