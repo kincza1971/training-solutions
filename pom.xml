@@ -34,14 +34,15 @@
                     <target>15</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-                <configuration>
-                    <argLine>-Dfile.encoding=UTF-8</argLine>
-                </configuration>
-            </plugin>        </plugins>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                <version>2.22.2</version>-->
+<!--                <configuration>-->
+<!--                    <argLine>-Dfile.encoding=UTF-8</argLine>-->
+<!--                </configuration>-->
+<!--            </plugin>        -->
+        </plugins>
     </build>
  <dependencies>
     <dependency>
@@ -50,9 +51,10 @@
         <version>5.6.2</version>
         <scope>test</scope>
     </dependency>
-     <dependency>
-         <groupId>org.apache.maven.plugins</groupId>
-         <artifactId>maven-surefire-plugin</artifactId>
-         <version>2.22.2</version>
-     </dependency> </dependencies>
+<!--     <dependency>-->
+<!--         <groupId>org.apache.maven.plugins</groupId>-->
+<!--         <artifactId>maven-surefire-plugin</artifactId>-->
+<!--         <version>2.22.2</version>-->
+<!--     </dependency> -->
+</dependencies>
 </project>

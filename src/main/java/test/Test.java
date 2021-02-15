@@ -1,12 +1,16 @@
 package test;
 
-
+import java.util.Arrays;
+import java.util.List;
 
 public class Test {
-    private static final String LOWERCASE_HUN = "[a-záéíóöőúüű ]+?";
+
 
     public static void main(String[] args) {
-        String akombakom= "láélás édgoőpkw aááűúőőöüóí";
-        System.out.println (akombakom.matches(LOWERCASE_HUN));
+        String s = "dog";
+        s.toUpperCase();
+        System.out.println(s);
+        int[] x = {0, 1, 2, 3, 4};
+        List<String> names = Arrays.asList("Joe", "John");;
     }
 }
