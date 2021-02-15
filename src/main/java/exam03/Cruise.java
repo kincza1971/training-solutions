@@ -32,7 +32,7 @@ public class Cruise {
     }
 
     public List<Passenger> getPassengers() {
-        return passengers;
+        return new ArrayList<>(passengers);
     }
 
     public void bookPassenger(Passenger passenger) {
@@ -57,6 +57,7 @@ public class Cruise {
     }
 
     public List<String> getPassengerNamesOrdered() {
+        checkIfListEmpty();
         return passengers.stream()
                        .sorted()
                        .map(Passenger::getName)
@@ -78,5 +79,11 @@ public class Cruise {
             } else countMap.put(key, 1);
         }
         return countMap;
+    }
+
+    private void checkIfListEmpty() {
+        if (passengers.isEmpty()) {
+            throw new IllegalArgumentException("Passanger list is empty");
+        }
     }
 }
