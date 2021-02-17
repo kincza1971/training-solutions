@@ -2,7 +2,6 @@ package exam03;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -71,14 +70,8 @@ public class Cruise {
     }
 
     public Map<CruiseClass,Integer> countPassengerByClass() {
-        Map<CruiseClass,Integer> countMap = new HashMap<>();
-        for(Passenger passenger : passengers) {
-            CruiseClass key = passenger.getCruiseClass();
-            if (countMap.containsKey(key)) {
-                countMap.put(key, countMap.get(key)+1);
-            } else countMap.put(key, 1);
-        }
-        return countMap;
+        return passengers.stream()
+                       .collect(Collectors.toMap(Passenger::getCruiseClass,m->1,Integer::sum));
     }
 
     private void checkIfListEmpty() {
