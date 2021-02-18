@@ -9,9 +9,10 @@ public class Histogram {
     public String createHistogram(BufferedReader reader) {
         String line;
         StringBuilder sb = new StringBuilder();
+        String star = "*";
         try  {
             while ((line = reader.readLine()) != null) {
-                sb.append(addStars(line));
+                sb.append(star.repeat(Integer.parseInt(line)) + "\n");
             }
             return sb.toString();
         } catch (IOException e) {
@@ -19,13 +20,5 @@ public class Histogram {
         }
     }
 
-    private String addStars(String line) {
-        int starCounter = Integer.parseInt(line);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < starCounter; i++) {
-            sb.append("*");
-        }
-        return sb.toString()+"\n";
-    }
 
 }
