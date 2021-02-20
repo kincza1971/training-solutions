@@ -1,4 +1,4 @@
-package colletctionsset;
+package collectionsset;
 
 import java.util.ArrayList;
 import java.util.Collection;

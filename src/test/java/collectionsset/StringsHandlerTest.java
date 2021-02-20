@@ -1,7 +1,5 @@
-package collectionshashset;
+package collectionsset;
 
-import collectionsset.RandomStringGenerator;
-import collectionsset.StringsHandler;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
@@ -37,8 +35,5 @@ public class StringsHandlerTest {
 
         //Then
         assertTrue(strings.size() < (a + b));
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(""+strings.size());
     }
 }
