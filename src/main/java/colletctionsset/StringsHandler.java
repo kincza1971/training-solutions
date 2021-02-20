@@ -1,6 +1,5 @@
-package colletctionshashset;
+package colletctionsset;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class StringsHandler {

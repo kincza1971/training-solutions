@@ -1,10 +1,8 @@
 package collectionshashset;
 
-import colletctionshashset.RandomStringGenerator;
-import colletctionshashset.StringsHandler;
+import colletctionsset.RandomStringGenerator;
+import colletctionsset.StringsHandler;
 import org.junit.jupiter.api.Test;
-
-//import helper.RandomStringGenerator;
 
 import java.util.Collection;
 import java.util.HashSet;
