@@ -1,6 +1,8 @@
+package exam03retake;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CdvCheckTest {
 
@@ -19,4 +21,3 @@ class CdvCheckTest {
                 () -> new CdvCheck().check("12345a7890"));
     }
 }
-© 2021GitHub,Inc.
