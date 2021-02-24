@@ -1,4 +1,4 @@
-package wekk17.d01;
+package week17.d01;
 
 import org.mariadb.jdbc.MariaDbDataSource;
 
