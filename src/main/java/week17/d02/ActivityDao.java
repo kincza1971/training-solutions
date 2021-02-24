@@ -102,7 +102,7 @@ public class ActivityDao {
         }
     }
 
-    public Activity findActivityById(long id, MariaDbDataSource dataSource) {
+    public Activity findActivityById(long id) {
         try (
                 Connection connection = dataSource.getConnection();
                 PreparedStatement statement = connection.prepareStatement("select * from activities where id = ?")

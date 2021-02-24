@@ -1,7 +1,9 @@
 package week17.d02;
 
 import org.flywaydb.core.Flyway;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mariadb.jdbc.MariaDbDataSource;
 
 import java.sql.SQLException;
@@ -32,5 +34,9 @@ class ActivityDaoTest {
 
     }
 
+    @Test
+    public void testFind() {
+        Assertions.assertEquals("Bringázás a Mátrában", activityDao.findActivityById(1L).getDesc());
+    }
 
 }

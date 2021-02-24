@@ -43,7 +43,7 @@ public class ActivityTrackerMain {
         activityDao.saveActivity(dataSource, activity1);
         activityDao.saveActivity(dataSource, activity1);
 
-        System.out.println(activityDao.findActivityById(3L, dataSource));
+        System.out.println(activityDao.findActivityById(3L));
 
         List<Activity> activities = List.of(activity1, activity2, activity3, activity4);
         System.out.println(activityDao.insertActivityFromList(activities));
