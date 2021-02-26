@@ -15,32 +15,41 @@ public class BalatonStorm {
             br.readLine();
             List<String> result = new ArrayList<>();
             String line;
-            String name;
             int level;
             while (!(line = br.readLine()).equals("]")) {
-                br.readLine();
-                name = br.readLine().split(":")[1];
-                name = name.substring(1, name.length() - 1);
-                br.readLine();
-                br.readLine();
-                br.readLine();
-                if (Integer.parseInt(br.readLine().split(":")[1].substring(1, 2)) == 3) {
-                    result.add(name);
-                }
-                br.readLine();
-                br.readLine();
-                br.readLine();
+                processOneStation(br, result);
             }
-            result.sort(new Comparator<String>() {
-                @Override
-                public int compare(String o1, String o2) {
-                    Collator huCollator = Collator.getInstance(new Locale("hu", "HU"));
-                    return huCollator.compare(o1, o2);
-                }
-            });
+            sortTheList(result);
             return result;
         } catch (IOException e) {
             throw new IllegalStateException("Cannot read file", e);
+        }
+    }
+
+    private void sortTheList(List<String> result) {
+        result.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                Collator huCollator = Collator.getInstance(new Locale("hu", "HU"));
+                return huCollator.compare(o1, o2);
+            }
+        });
+    }
+
+    private void processOneStation(BufferedReader br, List<String> result) throws IOException {
+        String name = "";
+        String line = "";
+        for (int i = 0; i < 7; i++) {
+            if (i == 1) {
+                name = br.readLine().split(":")[1];
+                name = name.substring(2, name.length() - 2);
+            }
+            if (i == 4) {
+                if (Integer.parseInt(br.readLine().split(":")[1].substring(1, 2)) == 3) {
+                    result.add(name);
+                }
+            }
+            line = br.readLine();
         }
     }
 }
