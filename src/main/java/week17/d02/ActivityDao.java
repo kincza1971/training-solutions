@@ -2,37 +2,68 @@ package week17.d02;
 
 import org.mariadb.jdbc.MariaDbDataSource;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityDao {
 
-    private MariaDbDataSource dataSource;
+    private DataSource dataSource;
 
     public ActivityDao(MariaDbDataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    public ActivityDao() {
-        this.dataSource = createDataSource();
-    }
+//    public ActivityDao() {
+//        this.dataSource = createDataSource();
+//    }
 
-    public MariaDbDataSource createDataSource() {
-        MariaDbDataSource dataSource;
-        String url = "jdbc:mariadb://localhost:3307/activitytracker?useUnicode=true";
-        try {
-            dataSource = new MariaDbDataSource();
-            dataSource.setUrl(url);
-            dataSource.setUser("activitytracker");
-            dataSource.setPassword("activitytracker");
-            return dataSource;
+//    public MariaDbDataSource createDataSource() {
+//        MariaDbDataSource dataSource;
+//        String url = "jdbc:mariadb://localhost:3307/activitytracker?useUnicode=true";
+//        try {
+//            dataSource = new MariaDbDataSource();
+//            dataSource.setUrl(url);
+//            dataSource.setUser("activitytracker");
+//            dataSource.setPassword("activitytracker");
+//            return dataSource;
+//        } catch (SQLException sqle) {
+//            throw new IllegalStateException("Cannot connect to database: " + url);
+//        }
+//    }
+
+    private List<TrackPoint> saveTrackPoints(List<TrackPoint> trackPoints, long activityId) {
+        List<TrackPoint> result = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement("INSERT INTO trackpoints (time, lat, lon, activity_id) VALUES " +
+                                                         "(?,?, ?)"
+                             , Statement.RETURN_GENERATED_KEYS)) {
+            try {
+                connection.setAutoCommit(false);
+                for (TrackPoint trackPoint : trackPoints) {
+                    statement.setTimestamp(1, Timestamp.valueOf(trackPoint.getTime()));
+                    statement.setDouble(2, trackPoint.getLat());
+                    statement.setDouble(3, trackPoint.getLon());
+                    statement.setDouble(4, activityId);
+                    statement.executeUpdate();
+                    long key = executeAndGetGeneratedKey(statement);
+                    result.add(new TrackPoint(key, trackPoint.getTime(), trackPoint.getLat(), trackPoint.getLon()));
+                }
+                connection.commit();
+                return result;
+            } catch (SQLException sqle) {
+                connection.rollback();
+                throw new IllegalStateException("Cannot insert", sqle);
+            }
         } catch (SQLException sqle) {
-            throw new IllegalStateException("Cannot connect to database: " + url);
+            throw new IllegalStateException("Cannot insert", sqle);
         }
     }
 
-    public Activity saveActivity(MariaDbDataSource dataSource, Activity activity) {
+
+    public Activity saveActivity(DataSource dataSource, Activity activity) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
                                                    .prepareStatement("INSERT INTO activities (start_time, activity_desc, activity_type) VALUES (?,?, ?)"
@@ -43,6 +74,34 @@ public class ActivityDao {
             statement.executeUpdate();
             long key = executeAndGetGeneratedKey(statement);
             return Activity.activityById(key, activity);
+        } catch (SQLException sqle) {
+            throw new IllegalStateException("Cannot insert", sqle);
+        }
+    }
+
+
+    public List<Activity> saveActivitiesList(DataSource dataSource, List<Activity> activities) {
+        List<Activity> result = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement("INSERT INTO activities (start_time, activity_desc, activity_type) VALUES (?,?, ?)"
+                             , Statement.RETURN_GENERATED_KEYS)) {
+            try {
+                connection.setAutoCommit(false);
+                for (Activity activity : activities) {
+                    statement.setTimestamp(1, Timestamp.valueOf(activity.getStartTime()));
+                    statement.setString(2, activity.getDesc());
+                    statement.setString(3, activity.getActivityType().toString());
+                    statement.executeUpdate();
+                    long key = executeAndGetGeneratedKey(statement);
+                    result.add(Activity.activityById(key, activity));
+                }
+                connection.commit();
+                return result;
+            } catch (SQLException sqle) {
+                connection.rollback();
+                throw new IllegalStateException("Cannot insert", sqle);
+            }
         } catch (SQLException sqle) {
             throw new IllegalStateException("Cannot insert", sqle);
         }
@@ -108,7 +167,7 @@ public class ActivityDao {
                 PreparedStatement statement = connection.prepareStatement("select * from activities where id = ?")
         ) {
             statement.setLong(1, id);
-            List<Activity> resultList = selectByPreparedStatement(statement);
+            List<Activity> resultList = selectActivityByPreparedStatement(statement);
             if (resultList.size() == 1) {
                 return resultList.get(0);
             }
@@ -118,14 +177,15 @@ public class ActivityDao {
         }
     }
 
-    private List<Activity> selectByPreparedStatement(PreparedStatement statement) {
+    private List<Activity> selectActivityByPreparedStatement(PreparedStatement statement) {
         try (ResultSet resultSet = statement.executeQuery()) {
             List<Activity> resultList = new ArrayList<>();
             while (resultSet.next()) {
                 resultList.add(new Activity(resultSet.getLong("id")
                         , resultSet.getTimestamp("start_time").toLocalDateTime()
                         , resultSet.getString("activity_desc")
-                        , ActivityType.valueOf(resultSet.getString("activity_type"))));
+                        , ActivityType.valueOf(resultSet.getString("activity_type"))
+                        , null));
             }
             return resultList;
         } catch (SQLException sqle) {
@@ -137,7 +197,7 @@ public class ActivityDao {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("select * from activities order by 1")
         ) {
-            return selectByPreparedStatement(statement);
+            return selectActivityByPreparedStatement(statement);
         } catch (SQLException sqle) {
             throw new IllegalStateException("Cannot run query", sqle);
         }
@@ -148,7 +208,7 @@ public class ActivityDao {
              PreparedStatement statement = connection.prepareStatement("select * from activities where " +
                                                                                "activity_type=?")) {
             statement.setString(1, activityType.toString());
-            return selectByPreparedStatement(statement);
+            return selectActivityByPreparedStatement(statement);
         } catch (SQLException sqle) {
             throw new IllegalStateException("Cannot execute select");
         }
