@@ -15,7 +15,6 @@ public class BalatonStorm {
             br.readLine();
             List<String> result = new ArrayList<>();
             String line;
-            int level;
             while (!(line = br.readLine()).equals("]")) {
                 processOneStation(br, result);
             }
