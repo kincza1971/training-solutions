@@ -38,7 +38,6 @@ public class BalatonStorm {
 
     private void processOneStation(BufferedReader br, List<String> result) throws IOException {
         String name = "";
-        String line = "";
         for (int i = 0; i < 7; i++) {
             if (i == 1) {
                 name = br.readLine().split(":")[1];
@@ -49,7 +48,7 @@ public class BalatonStorm {
                     result.add(name);
                 }
             }
-            line = br.readLine();
+            br.readLine();
         }
     }
 }
