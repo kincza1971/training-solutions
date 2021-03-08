@@ -16,10 +16,6 @@ public class UserInputs {
     private final Scanner scanner;
 
     private final String EXIT_CODE = "999";
-    private final String REGISTRATION_FILE_HEADER = "Név;Irányítószám;Életkor;E-mail cím;Taj szám";
-    private final String VACCINATION_FILE_HEADER = "Időpont;Név;Irányítószám;Életkor;E-mail cím;TAJ szám";
-    private final String REPORT_HEADER = "Irányítószám;OLTATLAN;EGY_OLTÁS;KÉT_OLTÁS";
-
 
     public UserInputs(MessagePrinter mp, VaccinationService service, Scanner scanner) {
         this.mp = mp;
@@ -48,8 +44,7 @@ public class UserInputs {
     }
 
     public String getName() {
-        String name = getAndValidateValue("Kérem, adja meg a nevet: ", new NameValidator());
-        return name;
+        return getAndValidateValue("Kérem, adja meg a nevet: ", new NameValidator());
     }
 
     public String getZip() throws IllegalArgumentException, IllegalStateException {
@@ -64,8 +59,7 @@ public class UserInputs {
     }
 
     public String getAge() throws IllegalArgumentException {
-        String ageStr = getAndValidateValue("Kérem az életkort (11 - 149)", new AgeValidator());
-        return ageStr;
+        return getAndValidateValue("Kérem az életkort (11 - 149)", new AgeValidator());
     }
 
     public String getSocialId() throws IllegalArgumentException {
@@ -103,19 +97,12 @@ public class UserInputs {
         Path path = Path.of(defaultPathStr);
         mp.printGreen("Alapértelmezett  könyvtár = " + path.toString());
         String yesNo = getAString("Szeretne Saját könyvtárat megadni (I,N)?");
-        if (yesNo.toLowerCase().equals("i")) {
+        if (yesNo.equalsIgnoreCase("i")) {
             String message = "Kérem adja meg az elérési utat fájlnév nélkül:";
             String pathStr = getAndValidateValue(message, new DirectoryValidator());
             path = Path.of(pathStr);
         }
         return path;
-    }
-
-    public String getPath() {
-        String message = "Kérem adja meg az elérési utat fájlnév nélkül:";
-        String pathStr = getAndValidateValue(message, new DirectoryValidator());
-        Path path = Path.of(pathStr);
-        return null;
     }
 
     public boolean getYesNo(String question) throws IllegalArgumentException {

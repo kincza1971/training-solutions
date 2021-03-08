@@ -16,9 +16,7 @@ public class ZipValidator implements Predicate<String> {
     public boolean test(String s) {
         try {
             return !dao.getZipsByZipcode(s).isEmpty();
-        } catch (IllegalArgumentException e) {
-            return false;
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException | IllegalStateException e) {
             return false;
         }
     }

@@ -27,7 +27,6 @@ public class VaccinationService {
     public static final int INDEX_OF_EMAIL = 3;
     public static final int INDEX_OF_TAJ = 4;
     MariaDbDataSource dataSource;
-    //   List<String> zips;
     private CitizenDao citizenDao;
     private List<String> wrongLines;
 
@@ -38,7 +37,6 @@ public class VaccinationService {
     public VaccinationService(MariaDbDataSource dataSource) {
         this.dataSource = dataSource;
         this.citizenDao = new CitizenDao(dataSource);
-        //zips = citizenDao.getZips();
     }
 
     public String checkName(String name) {
@@ -147,10 +145,9 @@ public class VaccinationService {
         return citizenDao.getZipsByZipcode(zipStr);
     }
 
-    public boolean insertCitizen(Citizen citizen) throws IllegalStateException {
+    public void insertCitizen(Citizen citizen) throws IllegalStateException {
         try {
             citizenDao.insertCitizen(citizen);
-            return true;
         } catch (SQLException sqle) {
             throw new IllegalStateException("Cannot connect to db: " + sqle.getMessage());
         }
@@ -160,22 +157,16 @@ public class VaccinationService {
         return citizenDao.getCitizensForVaccinationByZip(zip, limit);
     }
 
-    public Citizen getCitizenForVaccination(MariaDbDataSource dataSource, String taj) {
-        Citizen citizen = citizenDao.findCitizenBySocialID(taj);
-        return citizen;
+    public Citizen getCitizenForVaccination(String taj) {
+        return citizenDao.findCitizenBySocialID(taj);
     }
 
     public void insertVaccinationCancelled(Vaccination vaccination) {
         citizenDao.insertVaccinationCancelled(vaccination);
     }
 
-    public Vaccination saveVaccinateToDb(Citizen citizen, Vaccination vaccination) {
-        try {
-            return vaccination = citizenDao.insertVaccination(citizen, vaccination);
-
-        } catch (IllegalStateException ise) {
-            throw new IllegalStateException(ise.getMessage(), ise.getCause());
-        }
+    public void saveVaccinateToDb(Citizen citizen, Vaccination vaccination) {
+        citizenDao.insertVaccination(citizen, vaccination);
     }
 
     public List<String> createReportByZip() {

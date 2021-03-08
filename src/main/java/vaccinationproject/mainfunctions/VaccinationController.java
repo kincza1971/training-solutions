@@ -113,7 +113,7 @@ public class VaccinationController {
 
     private void cancelVaccination() {
         String taj = ui.getSocialId();
-        Citizen citizen = vaccinationService.getCitizenForVaccination(dataSource, taj);
+        Citizen citizen = vaccinationService.getCitizenForVaccination(taj);
         String note = ui.getNote();
         String question = citizen.toString() + System.lineSeparator() + "Helyesek az adatok (I/N)?";
         if (!ui.getYesNo(question)) {
@@ -137,7 +137,7 @@ public class VaccinationController {
     private void vaccinate() {
         try {
             String taj = ui.getSocialId();
-            Citizen citizen = vaccinationService.getCitizenForVaccination(dataSource, taj);
+            Citizen citizen = vaccinationService.getCitizenForVaccination(taj);
             int numOfVaccination = citizen.getNumberOfVaccination();
             if (numOfVaccination >= 2) {
                 mp.printRed("A választott személy már megkapta a két oltást " + System.lineSeparator() + citizen.getShortData());
@@ -165,7 +165,7 @@ public class VaccinationController {
                 citizen.getLastVaccinationType());
         vaccinationService.saveVaccinateToDb(citizen, vaccination);
         mp.printGreen("Az oltás sikeresen regisztrálásra került" + System.lineSeparator() + citizen.getShortData());
-        mp.printRedBright("Figyelem: " + vaccination.getVacccinationType());
+        mp.printRedBright("Figyelem: " + vaccination.getVaccinationType());
     }
 
     private void doTheFirstVaccination(Citizen citizen) {
@@ -193,7 +193,7 @@ public class VaccinationController {
         try {
             mp.printGreen(result.getLineCounter() + " sor feldolgozása történt meg");
             mp.printGreen(result.getErrorCounter() + " hibás sor volt a fájlban");
-            if (result.getErrorCounter() > 0 & ui.getYesNo("Kívánja a hibalistát menteni? I/N")) {
+            if (result.getErrorCounter() > 0 && ui.getYesNo("Kívánja a hibalistát menteni? I/N")) {
                 String dir = "/errors";
                 saveRegistrationErrorFile(result, dir);
             }

@@ -147,8 +147,7 @@ public class CitizenDao {
             if (!rs.next()) {
                 throw new IllegalStateException("No more person to vaccinate with this zip: " + zip);
             }
-            List<Citizen> result = createCitizensByResultSet(rs);
-            return result;
+            return createCitizensByResultSet(rs);
         } catch (SQLException sqle) {
             throw new IllegalStateException("Cannot read data from db: " + sqle.getMessage());
         }
@@ -191,7 +190,7 @@ public class CitizenDao {
         }
     }
 
-    public Vaccination insertVaccination(Citizen citizen, Vaccination vaccination) throws IllegalStateException {
+    public void insertVaccination(Citizen citizen, Vaccination vaccination) throws IllegalStateException {
         try (Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(false);
             try (
@@ -206,7 +205,6 @@ public class CitizenDao {
                 prepareAndUpdateCitizen(citizen, citizenSmt);
                 citizen.vaccinate(vaccination);
                 connection.commit();
-                return vaccination;
             } catch (IllegalStateException ise) {
                 connection.rollback();
                 throw new IllegalStateException(ise.getMessage(), ise.getCause());
@@ -218,11 +216,11 @@ public class CitizenDao {
 
     private Vaccination prepareAndInsertVaccination(Vaccination vaccination, PreparedStatement stmt) {
         try {
-            stmt.setInt(1, vaccination.getCitizen_id());
+            stmt.setInt(1, vaccination.getCitizenId());
             stmt.setDate(2, Date.valueOf(vaccination.getDate()));
             stmt.setString(3, vaccination.getStatus());
             stmt.setString(4, vaccination.getNote());
-            stmt.setString(5, vaccination.getVacccinationType());
+            stmt.setString(5, vaccination.getVaccinationType());
             stmt.executeUpdate();
             ResultSet keys = stmt.getGeneratedKeys();
             keys.next();
@@ -245,10 +243,9 @@ public class CitizenDao {
 
     public void insertVaccinationCancelled(Vaccination vaccination) {
         try (Connection connection = dataSource.getConnection()) {
-            try {
-                PreparedStatement statement =
-                        connection.prepareStatement("insert into vaccination values (null,?,?,3,null,null)");
-                statement.setInt(1, vaccination.getCitizen_id());
+            try (PreparedStatement statement =
+                         connection.prepareStatement("insert into vaccination values (null,?,?,3,null,null)")) {
+                statement.setInt(1, vaccination.getCitizenId());
                 statement.setDate(2, Date.valueOf(vaccination.getDate()));
             } catch (SQLException sqle) {
                 throw new IllegalStateException("Cannot insert cancelled vaccination: " + vaccination.toString(), sqle);
@@ -277,7 +274,7 @@ public class CitizenDao {
 
     private List<String> createReportByResultSet(ResultSet rs) throws SQLException {
         List<String> result = new ArrayList<>();
-        String line = "";
+        String line;
         while (rs.next()) {
             line = rs.getString(1) + ";" + rs.getString(2) + ";" + rs.getString(3) + ";" + rs.getString(4);
             result.add(line);
@@ -314,19 +311,3 @@ public class CitizenDao {
         return dataSource;
     }
 }
-
-
-//CREATE TABLE `citizens` (
-//	`fullname` VARCHAR(200) NOT NULL COLLATE 'utf8_hungarian_ci',
-//	`zip` INT(11) NOT NULL,
-//	`age` INT(10) UNSIGNED NOT NULL,
-//	`email` VARCHAR(200) NOT NULL COLLATE 'utf8_general_ci',
-//	`soc_id` VARCHAR(10) NOT NULL COLLATE 'utf8_general_ci',
-//	`vac_num` INT(11) NOT NULL DEFAULT '0',
-//	`last_vac` DATETIME NULL DEFAULT NULL,
-//	PRIMARY KEY (`soc_id`) USING BTREE,
-//	INDEX `FK_citizens_cities` (`zip`) USING BTREE
-//)
-//COLLATE='utf8_general_ci'
-//ENGINE=InnoDB
-//;

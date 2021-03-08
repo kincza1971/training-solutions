@@ -5,28 +5,28 @@ import java.time.LocalDate;
 
 public class Vaccination {
     private int id;
-    private LocalDate date;
-    private String status;
-    private String note;
-    private int citizen_id;
-    private String String;
+    private final LocalDate date;
+    private final String status;
+    private final String note;
+    private final int citizen_id;
+    private final String vacType;
 
     public Vaccination(int id, LocalDate date, String status, String note, int citizen_id,
-                       String String) {
+                       String vacType) {
         this.id = id;
         this.date = date;
         this.status = status;
         this.note = note;
         this.citizen_id = citizen_id;
-        this.String = String;
+        this.vacType = vacType;
     }
 
-    public Vaccination(LocalDate date, String status, String note, int citizen_id, String String) {
+    public Vaccination(LocalDate date, String status, String note, int citizen_id, String vacType) {
         this.date = date;
         this.status = status;
         this.note = note;
         this.citizen_id = citizen_id;
-        this.String = String;
+        this.vacType = vacType;
     }
 
     public static Vaccination of(Vaccination vaccination, int vacid) {
@@ -35,8 +35,8 @@ public class Vaccination {
                 vaccination.getDate(),
                 vaccination.getStatus(),
                 vaccination.getNote(),
-                vaccination.getCitizen_id(),
-                vaccination.getVacccinationType()
+                vaccination.getCitizenId(),
+                vaccination.getVaccinationType()
         );
     }
 
@@ -56,12 +56,12 @@ public class Vaccination {
         return note;
     }
 
-    public int getCitizen_id() {
+    public int getCitizenId() {
         return citizen_id;
     }
 
-    public String getVacccinationType() {
-        return String;
+    public String getVaccinationType() {
+        return vacType;
     }
 
     @Override

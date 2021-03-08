@@ -17,13 +17,6 @@ public class Citizen {
     private String lastVaccinationType;
 
 
-    private void checkParams(String fullName, int zipCodeId, int age, String mail, String socialId) {
-        if (fullName == null || fullName.isBlank()) {
-            throw new IllegalArgumentException("Name cannot be null or empty!");
-        }
-
-    }
-
     public Citizen(String fullName, String zipCode, int age, String mail, String socialId) {
         this.fullName = fullName;
         this.zipCode = zipCode;
@@ -53,7 +46,7 @@ public class Citizen {
 
         if (vaccinations != null) {
             if (!vaccinations.isEmpty()) {
-                this.lastVaccinationType = vaccinations.get(0).getVacccinationType();
+                this.lastVaccinationType = vaccinations.get(0).getVaccinationType();
             }
         }
     }
@@ -132,9 +125,10 @@ public class Citizen {
                 newVaccinations.addAll(getVaccinations());
             }
         }
+        this.vaccinations = newVaccinations;
         this.numberOfVaccination = getNumberOfVaccination() + 1;
         this.dateOfLastVaccination = vaccination.getDate();
-        this.lastVaccinationType = vaccination.getVacccinationType();
+        this.lastVaccinationType = vaccination.getVaccinationType();
         return this;
     }
 
