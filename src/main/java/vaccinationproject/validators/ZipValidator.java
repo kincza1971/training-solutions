@@ -1,30 +1,25 @@
 package vaccinationproject.validators;
 
-import vaccinationproject.guis.MessagePrinter;
-import vaccinationproject.mainfunctions.VaccinationService;
+import vaccinationproject.dao.CitizenDao;
 
 import java.util.function.Predicate;
 
 public class ZipValidator implements Predicate<String> {
-    private VaccinationService vaccinationService;
-    private MessagePrinter mp;
+    private final CitizenDao dao;
 
-    public ZipValidator(VaccinationService vaccinationService, MessagePrinter mp) {
-        this.vaccinationService = vaccinationService;
-        this.mp = mp;
+    public ZipValidator(CitizenDao dao) {
+        this.dao = dao;
     }
+
 
     @Override
     public boolean test(String s) {
         try {
-            vaccinationService.checkZip(s);
-            return true;
+            return !dao.getZipsByZipcode(s).isEmpty();
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
             return false;
         } catch (IllegalStateException e) {
-            mp.printRed("Ellenőrzés nem lehetséges, mert az irányítószám tábla üres");
-            throw new IllegalStateException("Cities table is empty");
+            return false;
         }
     }
 }

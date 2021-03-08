@@ -285,7 +285,7 @@ public class CitizenDao {
         return result;
     }
 
-    private Map<Integer, String> creatVaccinationTypeMapFromResultSet(ResultSet rs) throws SQLException {
+    private Map<Integer, String> createVaccinationTypeMapFromResultSet(ResultSet rs) throws SQLException {
         if (!rs.next()) {
             throw new IllegalStateException("Vactypes table is empty");
         }
@@ -304,12 +304,15 @@ public class CitizenDao {
                 Statement statement = connection.createStatement();
                 ResultSet rs = statement.executeQuery("select type_name from vactypes order by 1")
         ) {
-            return creatVaccinationTypeMapFromResultSet(rs);
+            return createVaccinationTypeMapFromResultSet(rs);
         } catch (SQLException sqle) {
             throw new IllegalStateException("Cannot connect to database: " + sqle.getMessage(), sqle);
         }
     }
 
+    public DataSource getDataSource() {
+        return dataSource;
+    }
 }
 
 

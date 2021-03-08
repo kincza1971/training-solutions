@@ -65,11 +65,9 @@ public class MessagePrinter {
 
     public void printVaccinationTypes(Map<Integer, String> vacTypes) {
         System.out.print(Colors.CYAN_BOLD);
-        int i = 1;
-        vacTypes.entrySet()
-                .stream()
-                .map(e -> e.getKey().toString() + ".\t" + e.getValue()).peek(System.out::println);
-        System.out.println("999. Adatbevitel megszakítása és visszalépés a fűmenübe");
+        for (Map.Entry<Integer, String> entry : vacTypes.entrySet()) {
+            System.out.println(entry.getKey().toString() + "\t" + entry.getValue());
+        }
         System.out.println(Colors.RESET);
 
     }

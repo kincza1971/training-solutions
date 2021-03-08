@@ -12,23 +12,21 @@ import java.util.List;
 
 public class SaveFiles {
 
-    private MessagePrinter mp;
+    private final MessagePrinter mp;
 
     public SaveFiles(MessagePrinter mp) {
         this.mp = mp;
     }
 
-    public boolean writeStringListToFile(Path path, List<String> linesToWrite, String header) {
+    public void writeStringListToFile(Path path, List<String> linesToWrite, String header) {
         try (BufferedWriter bw = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE)) {
             bw.write(header + System.lineSeparator());
             for (String line : linesToWrite) {
                 bw.write(line + System.lineSeparator());
             }
             mp.printGreen("File saved to: " + path.toString());
-            return true;
         } catch (IOException e) {
             mp.printRed("Cannot open or create file:" + path.toString());
-            return false;
         }
     }
 

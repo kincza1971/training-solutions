@@ -14,7 +14,7 @@ public class FileNameValidator implements Predicate<String> {
         if (matcher.matches()) {
             return true;
         }
-        throw new IllegalArgumentException("invalid email address:" + emailStr);
+        return false;
     }
 
 }

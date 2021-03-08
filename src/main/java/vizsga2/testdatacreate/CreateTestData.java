@@ -1,4 +1,4 @@
-package vaccinationproject.testdatacreate;
+package vizsga2.testdatacreate;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

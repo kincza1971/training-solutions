@@ -31,9 +31,9 @@ public class VaccinationController {
     private final SaveFiles filer;
 
     public static final String EXIT_CODE = "999";
-    private final String REGISTRATION_FILE_HEADER = "Név;Irányítószám;Életkor;E-mail cím;Taj szám";
-    private final String VACCINATION_FILE_HEADER = "Időpont;Név;Irányítószám;Életkor;E-mail cím;TAJ szám";
-    private final String REPORT_HEADER = "Irányítószám;OLTATLAN;EGY_OLTÁS;KÉT_OLTÁS";
+    private static final String REGISTRATION_FILE_HEADER = "Név;Irányítószám;Életkor;E-mail cím;Taj szám";
+    private static final String VACCINATION_FILE_HEADER = "Időpont;Név;Irányítószám;Életkor;E-mail cím;TAJ szám";
+    private static final String REPORT_HEADER = "Irányítószám;OLTATLAN;EGY_OLTÁS;KÉT_OLTÁS";
 
 
     public VaccinationController(Scanner mainScanner) {
@@ -163,7 +163,7 @@ public class VaccinationController {
     private void doTheSecondVaccination(Citizen citizen) {
         Vaccination vaccination = new Vaccination(LocalDate.now(), STATUS_COMPLETED, "", citizen.getId(),
                 citizen.getLastVaccinationType());
-        vaccinationService.vaccinate(citizen, vaccination);
+        vaccinationService.saveVaccinateToDb(citizen, vaccination);
         mp.printGreen("Az oltás sikeresen regisztrálásra került" + System.lineSeparator() + citizen.getShortData());
         mp.printRedBright("Figyelem: " + vaccination.getVacccinationType());
     }
@@ -173,19 +173,16 @@ public class VaccinationController {
         Vaccination vaccination = new Vaccination(LocalDate.now(), STATUS_COMPLETED, "",
                 citizen.getId(), type);
         mp.printGreen(vaccination.toString());
-        vaccinationService.vaccinate(citizen, vaccination);
+        vaccinationService.saveVaccinateToDb(citizen, vaccination);
         mp.printGreen("Az oltás sikeresen regisztrálásra került" + System.lineSeparator() + citizen.getShortData());
     }
 
     private void saveRegistrationErrorFile(MassRegistrationResult result, String dir) {
         String pathStr = Paths.get("").toAbsolutePath().toString() + dir;
-        String fnStr;
         try {
             Path path = ui.getPath(pathStr);
             path = ui.getFileName(path);
-            do {
-            } while (!filer.writeStringListToFile(path, result.getWrongLines(),
-                    REGISTRATION_FILE_HEADER));
+            filer.writeStringListToFile(path, result.getWrongLines(), REGISTRATION_FILE_HEADER);
         } catch (IllegalArgumentException iae) {
             mp.printRed(iae.getMessage());
         }
@@ -196,11 +193,9 @@ public class VaccinationController {
         try {
             mp.printGreen(result.getLineCounter() + " sor feldolgozása történt meg");
             mp.printGreen(result.getErrorCounter() + " hibás sor volt a fájlban");
-            if (result.getErrorCounter() > 0) {
-                if (ui.getYesNo("Kívánja a hibalistát menteni? I/N")) {
-                    String dir = "/errors";
-                    saveRegistrationErrorFile(result, dir);
-                }
+            if (result.getErrorCounter() > 0 & ui.getYesNo("Kívánja a hibalistát menteni? I/N")) {
+                String dir = "/errors";
+                saveRegistrationErrorFile(result, dir);
             }
         } catch (IllegalArgumentException e) {
             mp.printUserCancelInfo();

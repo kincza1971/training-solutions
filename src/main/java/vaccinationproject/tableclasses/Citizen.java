@@ -44,15 +44,13 @@ public class Citizen {
 
     public Citizen(int id, String fullName, String zipCode, int age, String mail, String socialId,
                    int numberOfVaccination, LocalDate dateOfLastVaccination, List<Vaccination> vaccinations) {
-        this.id = id;
-        this.fullName = fullName;
-        this.zipCode = zipCode;
-        this.age = age;
-        this.mail = mail;
-        this.socialId = socialId;
+
+        this(id, fullName, zipCode, age, mail, socialId);
+
         this.numberOfVaccination = numberOfVaccination;
         this.dateOfLastVaccination = dateOfLastVaccination;
         this.vaccinations = vaccinations;
+
         if (vaccinations != null) {
             if (!vaccinations.isEmpty()) {
                 this.lastVaccinationType = vaccinations.get(0).getVacccinationType();
@@ -62,15 +60,27 @@ public class Citizen {
 
     public Citizen(String fullName, String zipCode, int age, String mail, String socialId,
                    int numberOfVaccination, LocalDate dateOfLastVaccination, List<Vaccination> vaccinations) {
-        this.fullName = fullName;
-        this.zipCode = zipCode;
-        this.age = age;
-        this.mail = mail;
-        this.socialId = socialId;
+
+        this(fullName, zipCode, age, mail, socialId);
+
         this.numberOfVaccination = numberOfVaccination;
         this.dateOfLastVaccination = dateOfLastVaccination;
         this.vaccinations = vaccinations;
-        id = 0;
+    }
+
+
+    public static Citizen of(Citizen citizen, int id) {
+        return new Citizen(
+                id,
+                citizen.getFullName(),
+                citizen.getZipCode(),
+                citizen.getAge(),
+                citizen.getMail(),
+                citizen.getSocialId(),
+                citizen.getNumberOfVaccination(),
+                citizen.getDateOfLastVaccination(),
+                citizen.getVaccinations()
+        );
     }
 
     public String getFullName() {
@@ -111,27 +121,6 @@ public class Citizen {
 
     public String getLastVaccinationType() {
         return lastVaccinationType;
-    }
-
-    public void setVaccinations(List<Vaccination> vaccinations) {
-        this.vaccinations = vaccinations;
-        this.numberOfVaccination = vaccinations.size();
-        this.dateOfLastVaccination = vaccinations.get(0).getDate();
-        this.lastVaccinationType = vaccinations.get(0).getVacccinationType();
-    }
-
-    public static Citizen of(Citizen citizen, int id) {
-        return new Citizen(
-                id,
-                citizen.fullName,
-                citizen.getZipCode(),
-                citizen.getAge(),
-                citizen.getMail(),
-                citizen.getSocialId(),
-                citizen.numberOfVaccination,
-                citizen.dateOfLastVaccination,
-                citizen.getVaccinations()
-        );
     }
 
     public Citizen vaccinate(Vaccination vaccination) {
@@ -179,7 +168,6 @@ public class Citizen {
                        mail + ";" +
                        socialId;
     }
-
 
     @Override
     public String toString() {

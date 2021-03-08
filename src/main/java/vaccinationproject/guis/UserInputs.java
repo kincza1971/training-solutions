@@ -41,7 +41,7 @@ public class UserInputs {
     public String getNote() throws IllegalArgumentException {
         String note;
         mp.printUserCancelInfo();
-        System.out.println("Kérem az indoklást (maximum 1 sor):");
+        mp.printCian("Kérem az indoklást (maximum 1 sor):");
         note = scanner.nextLine();
         isUserExit(note);
         return note;
@@ -53,7 +53,7 @@ public class UserInputs {
     }
 
     public String getZip() throws IllegalArgumentException, IllegalStateException {
-        ZipValidator zipValidator = new ZipValidator(vaccinationService, mp);
+        ZipValidator zipValidator = new ZipValidator(vaccinationService.getCitizenDao());
         String zip = getAndValidateValue("Kérem az irányítószámot:", zipValidator);
         printZipcodes(vaccinationService.getZipsByZipcode(zip));
         return zip;

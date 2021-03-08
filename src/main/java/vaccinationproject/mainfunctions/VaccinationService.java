@@ -8,6 +8,7 @@ import vaccinationproject.tableclasses.Vaccination;
 import vaccinationproject.validators.AgeValidator;
 import vaccinationproject.validators.EmailValidator;
 import vaccinationproject.validators.SocIdValidator;
+import vaccinationproject.validators.ZipValidator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,21 +21,24 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class VaccinationService {
-    public final int INDEX_OF_NAME = 0;
-    public final int INDEX_OF_ZIP = 1;
-    public final int INDEX_OF_AGE = 2;
-    public final int INDEX_OF_EMAIL = 3;
-    public final int INDEX_OF_TAJ = 4;
+    public static final int INDEX_OF_NAME = 0;
+    public static final int INDEX_OF_ZIP = 1;
+    public static final int INDEX_OF_AGE = 2;
+    public static final int INDEX_OF_EMAIL = 3;
+    public static final int INDEX_OF_TAJ = 4;
     MariaDbDataSource dataSource;
-    List<String> zips;
-    CitizenDao citizenDao;
-    List<String> wrongLines;
+    //   List<String> zips;
+    private CitizenDao citizenDao;
+    private List<String> wrongLines;
 
+    public CitizenDao getCitizenDao() {
+        return citizenDao;
+    }
 
     public VaccinationService(MariaDbDataSource dataSource) {
         this.dataSource = dataSource;
         this.citizenDao = new CitizenDao(dataSource);
-        zips = citizenDao.getZips();
+        //zips = citizenDao.getZips();
     }
 
     public String checkName(String name) {
@@ -45,22 +49,10 @@ public class VaccinationService {
     }
 
     public String checkZip(String zipStr) {
-        if (zips == null) {
-            zips = citizenDao.getZips();
-            if (zips.isEmpty()) {
-                throw new IllegalStateException("Cities table is empty");
-            }
+        if (new ZipValidator(citizenDao).test(zipStr)) {
+            return zipStr;
         }
-        return getZipIfExists(zipStr);
-    }
-
-    private String getZipIfExists(String zipStr) {
-        for (String zip : zips) {
-            if (zip.equals(zipStr)) {
-                return zipStr;
-            }
-        }
-        throw new IllegalArgumentException("Zip does not exists " + zipStr);
+        throw new IllegalStateException("Cannot find ZIP: " + zipStr);
     }
 
     private int checkAge(String ageStr) {
@@ -107,7 +99,6 @@ public class VaccinationService {
 
     public List<Citizen> loadFromFileToList(Path file) {
         citizenDao = new CitizenDao(dataSource);
-        zips = citizenDao.getZips();
         try (BufferedReader br = Files.newBufferedReader(file)) {
             return br.lines()
                            .skip(1)
@@ -178,7 +169,7 @@ public class VaccinationService {
         citizenDao.insertVaccinationCancelled(vaccination);
     }
 
-    public Vaccination vaccinate(Citizen citizen, Vaccination vaccination) {
+    public Vaccination saveVaccinateToDb(Citizen citizen, Vaccination vaccination) {
         try {
             return vaccination = citizenDao.insertVaccination(citizen, vaccination);
 
@@ -193,5 +184,9 @@ public class VaccinationService {
 
     public Map<Integer, String> loadVaccinationTypesFromDatabase() {
         return citizenDao.getVaccinationTypes();
+    }
+
+    public MariaDbDataSource getDataSource() {
+        return dataSource;
     }
 }
