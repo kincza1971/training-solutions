@@ -5,20 +5,20 @@ import java.util.Map;
 
 public class MessagePrinter {
 
-    private final String EXIT_CODE = "999";
-    private final String USER_CANCEL = "Adatbevitel megszakítása: " + EXIT_CODE;
+    private static final String EXIT_CODE = "999";
+    private static final String USER_CANCEL = "Adatbevitel megszakítása: " + EXIT_CODE;
 
 
     public void printRed(String message) {
         System.out.println(Colors.RED_BOLD);
         System.out.println(message);
-        System.out.println(Colors.RESET);
+        System.out.print(Colors.RESET);
     }
 
     public void printGreen(String message) {
         System.out.println(Colors.GREEN);
         System.out.println(message);
-        System.out.println(Colors.RESET);
+        System.out.print(Colors.RESET);
     }
 
     public void printCian(String message) {
@@ -35,11 +35,12 @@ public class MessagePrinter {
     public void printRedBright(String message) {
         System.out.print(Colors.RED_BRIGHT);
         System.out.println(message);
-        System.out.println(Colors.RESET);
+        System.out.print(Colors.RESET);
 
     }
 
     public void printMenu() {
+        System.out.println();
         System.out.print(Colors.BLUE_BOLD.toString());
         System.out.println("Kérem válasszon az alábbi menüpontok közül:");
         System.out.println();

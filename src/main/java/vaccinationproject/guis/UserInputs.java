@@ -15,7 +15,7 @@ public class UserInputs {
     private final VaccinationService vaccinationService;
     private final Scanner scanner;
 
-    private final String EXIT_CODE = "999";
+    private static final String EXIT_CODE = "999";
 
     public UserInputs(MessagePrinter mp, VaccinationService service, Scanner scanner) {
         this.mp = mp;
