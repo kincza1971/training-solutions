@@ -56,12 +56,12 @@ public class Hachiko {
 
     public long countAWord(String word) {
         Path path = Path.of("src/main/resources/hachiko.srt");
-        try (Stream<String> lines = Files.lines(path,StandardCharsets.UTF_8)){
+        try (Stream<String> lines = Files.lines(path, StandardCharsets.UTF_8)) {
             return lines
-                    .filter(isLineContainsWord(word))
-                    .count();
+                           .filter(isLineContainsWord(word))
+                           .count();
         } catch (IOException e) {
-            throw new IllegalStateException("Cannot read file",e);
+            throw new IllegalStateException("Cannot read file", e);
         }
     }
 
